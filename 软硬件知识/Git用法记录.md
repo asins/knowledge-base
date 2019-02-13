@@ -1,6 +1,19 @@
 ## Git用法
+
+### 创建平台访问密钥
+
+创建平台访问密钥后，使用者在git平台中的操作的身份验证都通过密钥完成，不会打断正常操作。
+
+```bash
+# 1. 先生成密钥
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+# 2. 一路回车生成的密钥(~/.ssh/id_rsa.pub)内容添加到git平台的SSH Keys中就完成了
+```
+
+
 ### 修改Git配置
-```sh
+
+```bash
 # windows操作系统换行配置
 git config --global core.autocrlf input
 
@@ -10,12 +23,12 @@ git config user.email yourname@xx.com --local
 ```
 
 ### 克隆代码库
-```sh
+```bash
 git clone git@xx.com:aa/bb.git
 ```
 
 ### 查看分支
-```sh
+```bash
 # 列出本地所有的分支
 git branch
 
@@ -24,7 +37,7 @@ git branch -r
 ```
 
 ### 创建分支
-```sh
+```bash
 # 基于本地分支创建
 git branch [BRANCH_NAME]
 git push origin [BRANCH_NAME]
@@ -34,25 +47,25 @@ git branch [BRANCH_NAME] origin/master
 ```
 
 ### 绑定分支
-```sh
+```bash
 # 绑定后操作就能省略` origin [branch]`，使用起来更加方便高效，当然如果有多个远程需要操作就不能省略了
 git push -u origin [branch]
 ```
 
 ### 切换分支
-```sh
+```bash
 # 切换到本地分支，如果本地分支不存在自动寻找远程分支
 git checkout [BRANCH_NAME]
 ```
 
 ### 更新分支
 1. 更新master
-```sh
+```bash
 git pull --rebase origin master
 ```
 
 2. 解决rebase冲突。
-```sh
+```bash
 git status
 # 根据提示打开对应文件，搜索"<<<<<<<"字符，解决冲突后执行
 git add -u
@@ -62,7 +75,7 @@ git rebase --abort
 ```
 
 ### 提交代码
-```sh
+```bash
 # 提交到本地版本库
 git commit -m "commit message"
 
@@ -72,19 +85,19 @@ git push origin master
 
 ### 合并分支
 1. 切换到master。
-```sh
+```bash
 git checkout master
 ```
 
 2. 合并分支。
-```sh
+```bash
 git merge --no-ff [BRANCH_NAME]
 ```
 
 3. 解决src目录下的冲突。手动解决[教程](https://help.github.com/articles/resolving-a-merge-conflict-using-the-command-line/)，使用第三方工具解决冲突
 
 
-```sh
+```bash
 # 解决本次合并的所有冲突
 git mergetool
 
@@ -93,12 +106,12 @@ git mergetool src/js/g.js
 ```
 
 6. 重新构建build、dist目录下的所有冲突的文件。
-```sh
+```bash
 ytpm [PATH]
 ```
 
 5. 提交代码。
-```sh
+```bash
 git add .
 git commit -m "commit message"
 ```
@@ -106,28 +119,28 @@ git commit -m "commit message"
 ### 恢复代码
 
 * 放弃本地修改（废弃本地所有未提交的文件，和远程保持一致）
-```sh
+```bash
 git reset --hard origin/master
 ```
 
 * 恢复一个提交
-```sh
+```bash
 git revert [COMMIT_ID]
 ```
 
 * 恢复merge
-```sh
+```bash
 git revert -m 1 [MERGE_COMMIT_ID]
 ```
 
 * 恢复到指定版本
-```sh
+```bash
 git reset --hard [COMMIT_ID]
 ```
 
 
 ### 删除分支
-```sh
+```bash
 # 删除本地分支
 git branch -d [BRANCH_NAME]
 # 删除远程分支
@@ -135,7 +148,7 @@ git push origin --delete [BRANCH_NAME]
 ```
 
 ### 查看变更记录
-```sh
+```bash
 # 查看变更历史
 git log --decorate --numstat [PATH]
 
@@ -146,7 +159,7 @@ git show --name-only [COMMIT_ID]
 ### 对比文件
 
 1. git默认方式
-```sh
+```bash
 # 对比工作区版本和暂存区版本
 git diff -- [PATH]
 
@@ -168,7 +181,7 @@ git show master:src/js/g.js
 ```
 2. 外部比较工具完成比较
 
-```sh
+```bash
 # 比较本次合并的所有修改(只与提交前的记录比较)
 git difftool
 
@@ -176,13 +189,50 @@ git difftool
 git difftool [Git Hash] HEAD -- src/js/g.js
 ```
 
+### 回退本地版本
+
+
+
+如果你在本地做了错误提交，那么回退版本的方法很简单 
+先用下面命令找到要回退的版本的commit id：
+
+```bash
+git reflog
+```
+
+接着回退版本:
+
+```bash
+git reset --hard Obfafd
+```
+
+0bfafd 就是你要回退的版本的commit id的前面几位
+
+### 回退远程版本
+
+如果你的错误提交已经推送到自己的远程分支了，那么就需要回滚远程分支了。 
+首先要回退本地分支：
+
+```bash
+git reflog
+git reset --hard Obfafd
+```
+
+紧接着强制推送到远程分支：
+
+```bash
+git push -f
+```
+
+> **注意：本地分支回滚后，版本将落后远程分支，必须使用强制推送覆盖远程分支，否则无法推送到远程分支**
+
 ## 常见问题
 
 ### 切换开发中的代码到其它分支
 
 比如不小在在develop分支上进行开发，这时可按下面的方法解决
 
-```sh
+```bash
 # 未提交时
 git stash
 git checkout [BRANCH_NAME]
@@ -199,7 +249,7 @@ git cherry-pick [COMMIT_ID]
 
 如不小心将develop或基于develop创建的分支合并到master上时。
 
-```sh
+```bash
 A--M---B  <---develop
         \
 --C--G---J---P---Q  <---master
@@ -207,13 +257,13 @@ A--M---B  <---develop
 
 如上例，需要先确认好J这次错误提交点以及其之前、之后提交点的hash值，并**确保当前HEAD处于Q上**，接着执行：
 
-```sh
+```bash
 git rebase -i -p --onto P G
 ```
 
 执行完后需要手工解决之后每次提交出现的冲突，手工比较解决掉冲突后执行：
 
-```sh
+```bash
 git add .   // 添加此次冲突修改
 git rebase --continue
 ```
@@ -228,7 +278,7 @@ git rebase --continue
 
 另外，Mac版的 Beyond Compare 4 还需要进行设置让其支持通过命令行的方式调用：点击`菜单 -> Install Commond Line Tools...`然后输入系统登录密码即可。
 
-```sh
+```bash
 [merge]
 tool = bcomp
 [mergetool]
@@ -247,7 +297,7 @@ cmd = "/usr/local/bin/bcomp" "$LOCAL" "$REMOTE"
 ```
 ​### 常用git Alias
 
-```sh
+```bash
 [alias]
 st = status --short --branch
 pu = pull --rebase
@@ -267,12 +317,12 @@ ls = log --pretty=format:"%C(green)%h\\ %C(yellow)[%ad]%Cred%d\\ %Creset%s%Cblue
 
 ### 发布到各环境
 
-```sh
+```bash
 # 把master分支的代码发布到日常环境
 git push origin master:daily/1.0.0
 
 # 发布到线上环境
-git push origin daily/1.3.105
+git push origin master:daily/1.3.105
 git tag publish/1.3.105 # 版本号需与日常的一致
 git push origin publish/1.3.105
 

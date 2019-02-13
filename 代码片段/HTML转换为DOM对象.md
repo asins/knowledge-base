@@ -1,4 +1,4 @@
-# 将HTML String转换为DOM对象
+# 将String转换为HTML DOM对象
 
 ### 方法一： 使用`Range.createContextualFragment()`
 

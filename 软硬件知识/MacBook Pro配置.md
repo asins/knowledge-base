@@ -1,10 +1,3 @@
----
-title: MacBook Pro配置
-date: 2016-07-15
-update: 2017-11-14
-tags: [macbook, mac]
----
-
 昨天收到了公司给新配的MacBook Pro，频幕感觉很细腻，但触摸板前端边缘为啥那么割手啊！
 
 别的不说了，记录下系统配置。
