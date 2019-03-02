@@ -1,10 +1,3 @@
----
-title: 翻墙代理gost安装
-date: 2017-10-26
-update: 2017-11-14
-tags: [代理, 翻墙, gost]
----
-
 ## 安装
 
 1. 打开页面<https://github.com/ginuerzh/gost/releases>下载最新linux版本

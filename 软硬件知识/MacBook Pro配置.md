@@ -88,6 +88,12 @@ export PATH=$TOMCAT_HOME/bin:$M2_HOME/bin:$PATH
 brew install fish
 # 安装fish包管理器
 curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisherman
+# 将fish添加到mac shell列表中
+sudo bash -c "echo '/usr/local/bin/fish' >> /etc/shells"
+# 将fish设置为默认shell(不推荐)
+# chsh -s /usr/local/bin/fish
+# fisher的插件需要自己执行添加
+curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
 ```
 
 ## 翻译软件

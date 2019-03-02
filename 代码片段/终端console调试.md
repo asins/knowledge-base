@@ -1,9 +1,3 @@
----
-
----
-
-# 终端console调试功能
-
 ## 一、简单实现
 
 替换window.console.log方法，在document上创建Dom用于显示console.log。log输出

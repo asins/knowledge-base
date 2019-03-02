@@ -1,12 +1,3 @@
----
-typora-root-url: ./
-typora-copy-images-to: img
----
-
-# Cookie操作方法
-
-
-
 ## 一、读
 
 始终是字符操作比正则匹配快。
