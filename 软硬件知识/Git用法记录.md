@@ -226,11 +226,25 @@ git push -f
 
 > **注意：本地分支回滚后，版本将落后远程分支，必须使用强制推送覆盖远程分支，否则无法推送到远程分支**
 
+## 提交规范
+
+
+git 每次提交需要标识当前所做修改的类型，以开源社区通用加前缀的做法区分。
+
+- feat: 添加新功能
+- fix: 修复 bug
+- refactor: 代码重构、性能优化等
+- test: 补充单元测试
+- style: 代码格式修正(主要是指 eslint、tslint 等代码风格问题，业务逻辑并未改动)
+- docs: 项目文档、说明等修改
+- deps: 项目引用包版本更新
+- chore: 其他，比如变更构建逻辑、打包工具等
+
 ## 常见问题
 
 ### 切换开发中的代码到其它分支
 
-比如不小在在develop分支上进行开发，这时可按下面的方法解决
+比如不小心在develop分支上进行开发，这时可按下面的方法解决
 
 ```bash
 # 未提交时
@@ -295,7 +309,7 @@ prompt = false
 trustExitCode = true
 cmd = "/usr/local/bin/bcomp" "$LOCAL" "$REMOTE"
 ```
-​### 常用git Alias
+### 常用git Alias
 
 ```bash
 [alias]
@@ -333,3 +347,4 @@ git merge origin/master
 ```
 
 发布后，可以到assets平台查看发布结果。
+

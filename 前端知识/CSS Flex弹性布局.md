@@ -75,11 +75,9 @@ Webkit 内核的浏览器，必须加上`-webkit`前缀。
 
 ![img](assets/bg2015071006.png)
 
-```css
 .box{
   flex-wrap: nowrap | wrap | wrap-reverse;
 }
-```
 
 它可能取三个值。
 
