@@ -216,3 +216,20 @@ shell客户端
 #### vscode
 
 这个软件更新频率挺高，brew安装反而慢了，直接安装了。
+
+
+
+
+
+通过`brew cask`安装的软件
+
+```bash
+adoptopenjdk8              google-chrome              pomotodo
+appcleaner                 google-chrome-canary       qingg
+charles                    handbrake                  qq
+clipy                      iina                       shadowsocksx
+enpass                     imageoptim                 sublime-text
+eudic                      iterm2                     switchhosts
+firefox-developer-edition  neteasemusic               typora
+```
+
