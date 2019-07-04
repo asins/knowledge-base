@@ -1,3 +1,5 @@
+
+
 昨天收到了公司给新配的MacBook Pro，频幕感觉很细腻，但触摸板前端边缘为啥那么割手啊！
 
 别的不说了，记录下系统配置。
@@ -30,7 +32,9 @@
   sudo spctl --master-disable
   ```
 
-## 终端支持高亮
+## 终端环境
+
+**支持高亮：**
 
 ```sh
 # ~/.bash_profile
@@ -87,13 +91,11 @@ export PATH=$TOMCAT_HOME/bin:$M2_HOME/bin:$PATH
 # 安装fish
 brew install fish
 # 安装fish包管理器
-curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisherman
+curl -sLo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisherman
 # 将fish添加到mac shell列表中
 sudo bash -c "echo '/usr/local/bin/fish' >> /etc/shells"
 # 将fish设置为默认shell(不推荐)
 # chsh -s /usr/local/bin/fish
-# fisher的插件需要自己执行添加
-curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
 ```
 
 ## 翻译软件

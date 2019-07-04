@@ -16,7 +16,7 @@
  * // -> 'Escaped\?\ <\.>'
  */
 var escape = function(str) {
-    return String(str).replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+    return String(str).replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
 };
 ```
 
