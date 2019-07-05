@@ -1,9 +1,5 @@
 ## 系统配置
 
-
-
-
-
 ## 终端配置
 
 ### 创建SSH密钥
@@ -81,8 +77,8 @@ nginx -t   #测试配置是否有语法错误
 polipo是一个Web proxy，用于将sockets5服务转换为http服务。
 
 ```sh
-mkdir /var/log/polipo
-chmod 777 /var/log/polipo
+sudo mkdir /var/log/polipo
+sudo chmod 777 /var/log/polipo
 
 vim /usr/local/Cellar/polipo/1.1.1/homebrew.mxcl.polipo.plist
 ```
@@ -218,6 +214,12 @@ shell客户端
 这个软件更新频率挺高，brew安装反而慢了，直接安装了。
 
 
+
+通过brew安装的命令行软件：
+
+```bash
+fish  mariadb  node  polipo  macvim  nginx  ripgrep
+```
 
 
 
