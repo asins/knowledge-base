@@ -15,5 +15,5 @@ footerText: 'Copyright © 2019'
 # baseUrl配置,如果网站部署在根目录下的目录中，请设置为 /目录名
 domainUrl: 'http://blog.nootn.com'
 
-theme: jekyll-theme-hacker
+theme: jekyll-theme-dinky
 
