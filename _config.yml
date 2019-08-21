@@ -14,6 +14,31 @@ footerText: 'Copyright © 2019'
 # 域名配置
 # baseUrl配置,如果网站部署在根目录下的目录中，请设置为 /目录名
 domainUrl: 'http://blog.nootn.com'
+baseUrl: ''
 
-theme: jekyll-theme-dinky
+# 菜单
+menu:
+  - title: Home
+    url: /
+  - title: Categories
+    url: /pages/categories.html
+  - title: Search
+    url: /pages/search.html
+  - title: Links
+    url: /pages/links.html
+  - title: About
+    url: /pages/about.html
 
+# 自定义插件,具体说明请看README文档
+customPlugins:
+  - use: true
+    file: 'plugin-baidu-push.html'
+  - use: false
+    file: 'plugin-mathjax.html'
+
+# 这些不要动
+permalink: /posts/:year/:month/:day/:title.html
+kramdown:
+  auto_ids: true
+  input: GFM
+exclude: ['CNAME', 'README.md', 'build-tool']

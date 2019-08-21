@@ -1,0 +1,30 @@
+---
+layout: page
+isPage: true
+title: 文章分类
+css: [blog.css]
+js: [blog.js]
+---
+<div class="container page-categories animation-fade-up">
+	<h1 class="page-title" id="{{ page.title }}">{{ page.title }}</h1>
+	<ul>
+		{% for category in site.categories %}
+		<li>
+			<a href="javascript:document.getElementById('{{ category[0] }}').scrollIntoView()">{{ category[0] }}</a>
+		</li>
+		{% endfor %}
+	</ul>
+	{% for category in site.categories %}
+	<div class="list-group">
+		<h2 id="{{ category[0] }}">{{ category[0] }}</h2>
+		<ul>
+			{% for post in category[1] %}
+			<li>
+				<span class="date">{{ post.date | date: "%Y/%m/%d" }}</span>
+				<a href="{{ site.baseUrl | append: post.url }}" class="title hover-underline">{{ post.title }}</a>
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
+	{% endfor %}
+</div>
