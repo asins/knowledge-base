@@ -1,7 +1,6 @@
 ## .tar 
 - 解包：`tar xvf FileName.tar`
 - 打包：`tar cvf FileName.tar DirName`
-（注：tar是打包，不是压缩！）
 
 
 ## .gz

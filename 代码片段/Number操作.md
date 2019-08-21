@@ -101,3 +101,20 @@ const addChineseUnit = (function() {
   };
 })();
 ```
+
+### 用零补齐长度
+
+```js
+// format(2, 5) -> '00002'
+export function format(data: string | number, dataLen: number) {
+  data = String(data);
+
+  // data总长度大于预订值直接返回
+  const len = data.length;
+  if(dataLen <= len) return data;
+
+  data = String(Math.pow(10, dataLen - len)) + data;
+  return data.substr(-dataLen);
+}
+```
+

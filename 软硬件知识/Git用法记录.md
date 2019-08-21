@@ -284,6 +284,34 @@ git rebase --continue
 
 注意，上面的步骤可能会进行很多次，每次都是上面的方法；手工比较的方法可以参看外部比较工具的使用方式。
 
+### 修改提交记录中用户信息
+
+如果只有一条记录那直接使用下面的命令就可以修改过来：
+
+```sh
+git commit --amend --author="asins <name@mail.com>"
+```
+
+如果记录比较多就得使用下面的方式了：
+
+```sh
+git filter-branch --force --env-filter '
+  #如果Git用户名等于老的Git用户名 wangshuyin
+  if [ "$GIT_COMMITTER_NAME" = "<Old Name>" || "$GIT_AUTHOR_EMAIL" = "<Old Email>" ];
+  then
+    #替换提交的用户名为新的用户名，替换提交的邮箱为正确的邮箱
+    GIT_COMMITTER_NAME="<New name>";
+    GIT_COMMITTER_EMAIL="<New email>";
+    
+    #替换用户名为新的用户名，替换邮箱为正确的邮箱
+    GIT_AUTHOR_NAME="<New name>";
+    GIT_AUTHOR_EMAIL="<New email>";
+  fi
+' --tag-name-filter cat -- --all
+```
+
+
+
 ## 其它
 
 ### Beyond Compare比较工具配置
