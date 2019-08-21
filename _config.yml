@@ -1,6 +1,7 @@
 encoding: utf-8
 
 # 首页使用下面的命令生成
+#!/bin/bash
 # find **/*.md |sed 's/^\(.*\)\/\(.*\)\.md/- [\2](\1\/\2.md)/' > index.md
 
 # SEO相关信息
@@ -15,6 +16,4 @@ footerText: 'Copyright © 2019'
 domainUrl: 'http://blog.nootn.com'
 
 theme: jekyll-theme-hacker
-
-exclude: ['build-tool']
 
