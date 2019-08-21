@@ -1,5 +1,8 @@
 encoding: utf-8
 
+# 首页使用下面的命令生成
+# find **/*.md |sed 's/^\(.*\)\/\(.*\)\.md/- [\2](\1\/\2.md)/' > index.md
+
 # SEO相关信息
 title: Asins Blog
 description: 简单其实不简单
@@ -12,4 +15,6 @@ footerText: 'Copyright © 2019'
 domainUrl: 'http://blog.nootn.com'
 
 theme: jekyll-theme-hacker
+
+exclude: ['build-tool']
 
