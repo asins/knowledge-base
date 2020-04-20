@@ -9,11 +9,11 @@ title: Asins Blog
 description: 简单其实不简单
 keywords: Asins,Blog,Html,JavaScript,Vue
 author: Asins
-footerText: 'Copyright © 2019'
+footerText: '©Asins 2020'
 
 # 域名配置
 # baseUrl配置,如果网站部署在根目录下的目录中，请设置为 /目录名
-domainUrl: 'http://blog.nootn.com'
+domainUrl: 'https://blog.nootn.com'
 
 theme: jekyll-theme-dinky
 
