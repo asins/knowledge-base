@@ -231,14 +231,16 @@ git push -f
 
 git 每次提交需要标识当前所做修改的类型，以开源社区通用加前缀的做法区分。
 
-- feat: 添加新功能
-- fix: 修复 bug
-- refactor: 代码重构、性能优化等
-- test: 补充单元测试
-- style: 代码格式修正(主要是指 eslint、tslint 等代码风格问题，业务逻辑并未改动)
-- docs: 项目文档、说明等修改
-- deps: 项目引用包版本更新
-- chore: 其他，比如变更构建逻辑、打包工具等
+- feat：新功能
+- fix： 修复bug
+- docs：修改文档
+- style： 修改代码格式，不影响代码逻辑
+- refactor： 重构代码，理论上不影响现有功能
+- pref： 提升性能
+- test： 增加修改测试用例
+- chore： 修改工具相关（包括但不限于文档 代码生成等）
+- deps： 升级依赖
+- WIP：功能开发进行中
 
 ## 常见问题
 
@@ -367,12 +369,18 @@ git push origin master:daily/1.0.0
 git push origin master:daily/1.3.105
 git tag publish/1.3.105 # 版本号需与日常的一致
 git push origin publish/1.3.105
+```
 
-# 合并远程Master
+发布后，可以到assets平台查看发布结果。
+
+
+
+### 合并远程Master
+```sh
 git fetch -p
 git checkout master
 git merge origin/master
 ```
 
-发布后，可以到assets平台查看发布结果。
+
 

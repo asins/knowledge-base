@@ -12,7 +12,7 @@
 
 上代码：
 
-```
+```css 
 .foo {
   width: 750rpx;
   height: 150rpx;
@@ -104,7 +104,7 @@
    }
    ```
 
-   ```
+   ```html 
    <head>
      <meta charset="utf-8"/>
      <title>test vw polyfill</title>
@@ -156,25 +156,25 @@
 
 同上，由于不是所有的图片都需要采用@2x @3x方案，大家在需要的时候，可以选择增加 @media 做适配，或者利用postCss插件做自动化、结合阿里云/其他云的图片处理接口。 当然，也有很多其他的方法，大家自行选择哈 例：
 
-```
-      /* 普通显示屏(设备像素比例小于等于1)使用1倍的图 */
-      .css{
-          background-image: url(img@1x.png);
-      }
-      
-      /* 高清显示屏(设备像素比例大于等于2)使用2倍图  */
-      @media only screen and (-webkit-min-device-pixel-ratio:2){
-          .css{
-              background-image: url(img@2x.png);
-          }
-      }
-      
-      /* 高清显示屏(设备像素比例大于等于3)使用3倍图  */
-      @media only screen and (-webkit-min-device-pixel-ratio:3){
-          .css{
-              background-image: url(img@3x.png);
-          }
-      }     
+```css 
+/* 普通显示屏(设备像素比例小于等于1)使用1倍的图 */
+.css{
+  background-image: url(img@1x.png);
+}
+
+/* 高清显示屏(设备像素比例大于等于2)使用2倍图  */
+@media only screen and (-webkit-min-device-pixel-ratio:2){
+  .css{
+    background-image: url(img@2x.png);
+  }
+}
+
+/* 高清显示屏(设备像素比例大于等于3)使用3倍图  */
+@media only screen and (-webkit-min-device-pixel-ratio:3){
+  .css{
+    background-image: url(img@3x.png);
+  }
+}     
 ```
 
 1. 关于字体大小是否使用vw
@@ -188,3 +188,44 @@
 以上，文中部分引用均用超链接的形式标出
 
 如有不准确之处，欢迎留言拍砖~
+
+
+
+----
+
+### 根据设备尺寸将px转化为vw
+
+```js
+function px2VwForStyleObj(styleObj, opts = {}) {
+  const defaults = {
+    viewportWidth: 320,
+    viewportHeight: 568,
+    unitPrecision: 5,
+    viewportUnit: 'vw',
+    landscapeUnit: 'vw',
+  };
+  const options = Object.assign({}, defaults, opts)
+  const pxRegex = new RegExp(/(\d+)px/.source, 'ig')
+  const stylesStr = JSON.stringify(styleObj);
+  const toFixed = (number, precision) => {
+    const multiplier = Math.pow(10, precision + 1);
+    const wholeNumber = Math.floor(number * multiplier);
+    return Math.round(wholeNumber / 10) * 10 / multiplier;
+  }
+  const createPxReplace = (optionsArg, viewportUnit, viewportSize) => {
+    return function (m, $1) {
+      if (!$1) return m;
+      const pixels = parseFloat($1);
+      if (pixels <= optionsArg.minPixelValue) return m;
+      const parsedVal = toFixed((pixels / viewportSize * 100), optionsArg.unitPrecision);
+      return parsedVal === 0 ? '0' : parsedVal + viewportUnit;
+    };
+  }
+
+  return JSON.parse(stylesStr.replace(pxRegex, createPxReplace(options, options.landscapeUnit, options.viewportWidth)));
+}
+
+// 使用：
+tabBarUnderlineStyle={px2VwForStyleObj({ height : '10px' })}
+```
+

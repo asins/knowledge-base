@@ -5,12 +5,12 @@
 ```js
 function getCookie(name, cookie) {
   if (!cookie) cookie = document.cookie;
-  var setPos = cookie.indexOf(name + '=');
-  var stopPos = cookie.indexOf(';', setPos);
+  const startIndex = cookie.indexOf(name + '=');
+  const endIndex = cookie.indexOf(';', startIndex);
 
-  return !~setPos ? null : decodeURIComponent(cookie.substring(
-    setPos, ~stopPos ? stopPos : undefined
-  ).split('=')[1]);
+  return startIndex < 0 ? null : decodeURIComponent(
+    cookie.substring(startIndex, endIndex > -1 ? endIndex : undefined).split('=')[1],
+  );
 }
 ```
 
@@ -20,9 +20,24 @@ function getCookie(name, cookie) {
 
 ## 二、写
 
+```js
 
+function setCookie(name, value, opt) {
+  if (!opt) opt = {};
+  let expires = opt.expires !== undefined ? opt.expires : '';
+  const expiresType = typeof expires;
+	const path = opt.path !== undefined ? ';path=' + opt.path : ';path=/';
+	const domain = opt.domain ? ';domain=' + opt.domain : '';
+	const secure = opt.secure ? ';secure' : '';
 
+  // 过期时间
+  if (expiresType === 'string' && expires !== '') expires = new Date(expires);
+  else if (expiresType === 'number') expires = new Date(+new Date() + 1000 * 60 * 60 * 24 * expires);
+  if (expires !== '' && 'toGMTString' in expires) expires = ';expires=' + expires.toGMTString();
 
+  document.cookie = name + '=' + encodeURIComponent(value) + expires + path + domain + secure; // 转码并赋值
+}
+```
 
 ----
 

@@ -1,8 +1,21 @@
+---
+title: "MackBack Pro配置2019"
+date: "2020-04-07 20:51:21"
+---
+
 ## 系统配置
 
+### 网络
 
+```bash
+# 查看dns解析情况
+ding @223.5.5.5 +tcp google.com
+```
 
-
+- 高级... > DNS ：公共DNS是必须添加的
+  - 223.5.5.5 阿里的
+  - 8.8.8.8  google的
+  - 180.76.76.76 百度的
 
 ## 终端配置
 
@@ -13,6 +26,18 @@ ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 ```
 
 创建好后在登录`github`等平台时可以做到免登。
+
+### 让系统支持任何来源的软件
+
+```sh
+sudo spctl --master-disable
+```
+
+### 更新软件内文件签名
+
+```sh
+sudo codesign --force --deep --sign - /软件/路径/
+```
 
 ### 下载个人dotfiles
 
@@ -40,6 +65,17 @@ git clone git@github.com:asins/dotfiles.git ~/Code/dotfiles
 | brew update         | 更新brew                                 |
 | brew outdated       | 列出过时的软件包（已安装但不是最新版本） |
 | brew upgrade [wget] | 全部或指定更新过时的软件包               |
+
+
+
+### 使用 Homebrew 管理 Mac 的后台服务
+
+```bash
+brew tap gapple/services
+```
+
+
+
 
 
 #### nginx
@@ -161,6 +197,15 @@ fisher install rafaelrinaldi/pure
 
 #### google-chrome
 google浏览器
+
+```bash
+# 因为软件更新交给brew cask了，所以chrome的更新检测不需要了，也避免恶意数据收集风险，所以关掉
+defaults write com.google.Keystone.Agent checkInterval 0
+
+#  google从什么时候开始就强制要请求服务器更新软件了，
+sudo touch /Library/Google/GoogleSoftwareUpdate && sudo chown -R root:wheel /Library/Google/GoogleSoftwareUpdate
+sudo touch ~/Library/Google/GoogleSoftwareUpdate && sudo chown -R root:wheel ~/Library/Google/GoogleSoftwareUpdate
+```
 
 #### google-chrome-canary
 google开发者浏览器，新特性首发地

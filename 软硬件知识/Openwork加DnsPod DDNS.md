@@ -25,6 +25,8 @@ crontab -e
 */5 * * * * /root/ddns.sh token test.com www  >> /home/pi/ddns/ddns.log 2>&1
 ```
 
+2>&1 | tee ${cur_dir}/install_bbr.log
+
 上述的命令表示每 5 分钟检查一次域名更新，如果发现 IP 有变化的话，就自动更新相应的域名（www.test.com）。
 
 - `token` DnsPod中创建的值，需要这里的值是DnsPod中id,token的组合

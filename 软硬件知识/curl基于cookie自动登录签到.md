@@ -14,22 +14,24 @@ COOKIEFILE="$BASEDIR/cookie_iamtxt_tmp.txt"
 # -d 登录参数
 # -c 保存cookie到临时文件中
 # -s silence mode
-LOGINURL=http://www.iamtxt.com/e/member/doaction.php
-LOGINPARAM="username=$USERNAME&password=$PASSWORD&enews=login&tobind=0&lifetime=315360000&ecmsfrom=http://www.iamtxt.com/"
+LOGINURL=https://www.iamtxt.com/e/member/doaction.php
+LOGINPARAM="username=$USERNAME&password=$PASSWORD&enews=login&tobind=0&lifetime=315360000&ecmsfrom=https://www.iamtxt.com/"
 RESPONSE=`curl $LOGINURL -d$LOGINPARAM -c $COOKIEFILE -s | grep "<strong>"`
 TIME=`date +'%Y-%m-%d %H:%M:%S'`
 echo "$TIME | $RESPONSE" >> $LOGFILE
 
 # update
 # -b use the cookie file
-UPDATEURL=http://www.iamtxt.com/e/extend/signin.php
+UPDATEURL=https://www.iamtxt.com/e/extend/signin.php
 RESPONSE=`curl $UPDATEURL -d"userid=310975" -s -b $COOKIEFILE`
 TIME=`date +'%Y-%m-%d %H:%M:%S'`
 # write the response to log file
 echo "$TIME | $RESPONSE" >> $LOGFILE
 
 # delete cookie temp file
-rm $COOKIEFILE
+if [ -d $COOKIEFILE ]; then
+  rm $COOKIEFILE
+fi
 ```
 
 添加可执行权限

@@ -1,3 +1,5 @@
+
+
 # JS Number操作
 
 ### 数字三位分隔
@@ -5,6 +7,13 @@
 ```js
 '11222333444555'.match(/\d+?(?=(\d{3})*$)/g); // ["11", " 222", "333 ", "444", "555"]
 '12345.123'.replace(/(\d)(?=(\d{3})+($|\.))/g, '$1,'); // "12,345.123"
+```
+
+```js
+// 12345.123 => 12,345.123
+export function numberSplit(num: string | number, separator: string = ',') {
+  return String(num).replace(/(\d)(?=(\d{3})+($|\.))/g, '$1' + separator);
+}
 ```
 
 
@@ -33,6 +42,36 @@ console.log(add(123151541512315150, 48154546104815460));
 ```
 
 ### 为数字加上单位：万或亿
+
+```js
+export function field(num) {
+  num = parseFloat(num);
+  if (num >= 10E7) { // 1亿 1.2亿 12.4亿
+    const numFormat = (num / 10E7).toFixed(2);
+    return numberSplit(numFormat) + '亿';
+  }
+
+  if (num >= 10E3) { // 1.20万 1.23万 12.34万 100万 100.03万 1,234万
+    const n = num / 10E3;
+    let nl = Math.ceil(n).toString();
+    const nlLen = nl.length;
+    if (nlLen < 4 && String(n) !== nl) { // 保证只显示4个数字
+      nl = n.toFixed(nlLen === 1 ? 2 : 4 - nlLen);
+    }
+    return numberSplit(nl) + '万';
+  }
+
+  // 123 12,234
+  if (num !== 0) {
+    if (num - parseInt(num) !== 0) {
+      num = num.toFixed(2);
+    }
+  }
+  return numberSplit(num);
+}
+```
+
+
 
 ```js
 /**
@@ -117,4 +156,25 @@ export function format(data: string | number, dataLen: number) {
   return data.substr(-dataLen);
 }
 ```
+
+### 检测数字是否在0～1之间
+
+```js
+function checkOneNumberRegion(_rule, value, callback) {
+  const valString = String(value); // 处理小数后多位时的字符匹配问题 如 0.11 1e-12
+  const valNumber = parseFloat(valString);
+  // console.log(valString, /^\d+((?:\.[0-9]+)?|e\-\d+)$/i.test(valString), valNumber >=0 && valNumber <= 1);
+  if(/^\d+((?:\.[0-9]+)?|e\-\d+)$/i.test(valString) && valNumber >=0 && valNumber <= 1) {
+    callback();
+  } else {
+    callback(new Error('请输入数值范围需在0和1之间！'));
+  }
+}
+
+checkOneNumberRegion('1e-4');
+checkOneNumberRegion('0.01');
+checkOneNumberRegion('1');
+```
+
+
 

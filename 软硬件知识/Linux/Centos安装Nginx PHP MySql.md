@@ -1,3 +1,45 @@
+我使用Centos 8时也遇到上面的错误，主要是 SELINUX安全机制导致的问题
+
+```bash
+# ls -alZ 可以查看到目录的状态
+drwxrwxrwx. ec2-user root system_u:object_r:httpd_sys_content_t:s0 www
+
+# 需要将上面的`httpd_sys_content_t` 更换为 `httpd_rw_content_t`
+drwxrwxrwx. ec2-user root system_u:object_r:httpd_sys_rw_content_t:s0 www
+
+# 可以使用下面的命令操作：
+chcon -R -t httpd_sys_rw_content_t /www
+```
+
+
+
+### 为Nginx配置一级缓存
+
+```nginx
+http {
+    ...
+    proxy_cache_path /tmp/ngx_cache levels=1:2
+                    keys_zone=ngx_cache:100m
+                    max_size=40g inactive=1440m;
+    server {
+        ...
+        proxy_cache ngx_cache;
+        proxy_cache_key $host$uri$is_args$args;
+        proxy_cache_background_update on;
+        proxy_cache_lock on;
+        proxy_cache_use_stale updating;
+        proxy_cache_min_uses 1;
+        proxy_cache_valid 200 304 5s; # 对状态为200和304的缓存文件缓存5秒
+        proxy_ignore_headers Cache-Control;
+        proxy_cache_bypass $cookie_nocache $arg_nocache $http_nocache;
+        add_header X-Cache-Status $upstream_cache_status;
+    }
+
+}
+```
+
+
+
 ### Introduction
 
 A LEMP software stack is a group of open source software that is typically installed together to enable a server to host dynamic websites and web apps. This term is actually an acronym which represents the **L**inux operating system, with the **E**Nginx web server (which replaces the Apache component of a LAMP stack). The site data is stored in a **M**ySQL database (using MariaDB), and dynamic content is processed by **P**HP.
@@ -46,7 +88,7 @@ Open in a web browser:http://server_domain_name_or_IP/
 
 You will see the default CentOS 7 Nginx web page, which is there for informational and testing purposes. It should look something like this:
 
-![CentOS 7 Nginx Default](https://assets.digitalocean.com/articles/lemp_1404/nginx_default.png)
+![CentOS 7 Nginx Default](assets/nginx_default.png)
 
 If you see this page, then your web server is now correctly installed.
 
@@ -328,3 +370,10 @@ sudo rm /usr/share/nginx/html/info.php
 ```
 
 You can always recreate this page if you need to access the information again later.
+
+
+
+
+
+
+

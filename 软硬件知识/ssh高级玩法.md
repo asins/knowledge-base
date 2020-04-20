@@ -20,8 +20,8 @@ chmod 600 ~/.ssh/authorized_keys
 ```conf
 Host esc-dev
     hostname 11.239.175.49
-    user wkli
-    IdentityFile  ~/.ssh/wkli-alibaba-inc_rsa.pub
+    user asins
+    IdentityFile  ~/.ssh/id_rsa.pub
 ```
 
 如果发现无法自动登录，请修改
