@@ -1,5 +1,11 @@
+---
+title: "mysql操作"
+date: "2019-10-17"
+lastmod: "2020-05-05"
+---
+
 ```sh
-# 登录mysql
+# 登录 mysql
 mysql -u root -p
 
 # 创建数据库

@@ -1,3 +1,9 @@
+---
+title: "Centos中安装v2ray"
+date: "2020-04-18"
+lastmod: "2020-04-20"
+---
+
 ## Nginx安装及配置
 
 安装参考了https://tlanyan.me/v2ray-traffic-mask/

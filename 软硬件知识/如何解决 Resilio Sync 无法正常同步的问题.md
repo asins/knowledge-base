@@ -1,3 +1,9 @@
+---
+title: "如何解决 Resilio Sync 无法正常同步的问题"
+date: "2019-08-21"
+lastmod: "2019-08-21"
+---
+
 # 如何解决 Resilio Sync 无法正常同步的问题
 
 时间：[2017年10月30日](https://bookfere.com/post/581.html)  编辑：[书伴](https://bookfere.com/post/author/bookfere) [50 条评论](https://bookfere.com/post/581.html#comments)

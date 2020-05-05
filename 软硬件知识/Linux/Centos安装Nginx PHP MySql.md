@@ -1,4 +1,8 @@
-我使用Centos 8时也遇到上面的错误，主要是 SELINUX安全机制导致的问题
+---
+title: "Centos安装Nginx PHP MySql"
+date: "2019-08-21"
+lastmod: "2020-04-21"
+---
 
 ```bash
 # ls -alZ 可以查看到目录的状态
@@ -39,6 +43,27 @@ http {
 ```
 
 
+
+# 请求头大小配置
+
+nginx默认的header长度上限是4k，如果header头信息请求超过了，nginx会直接返回400错误
+可以通过以下2个参数来调整nginx的header上限
+
+```nginx 
+client_header_buffer_size 16k;
+large_client_header_buffers 4 16k;
+```
+
+nginx处理header时先根据client_header_buffer_size配置的值分配一个buffer；如果分配的buffer无法容纳 request_line/request_header，那么就会再次根据large_client_header_buffers配置的参数分配large_buffer；如果large_buffer还是无法容纳，那么就会返回414（处理request_line）/400（处理request_header）错误。
+
+所以可以看出：
+
+1. 如果你的请求中的header都很大，那么应该使用client_header_buffer_size，这样能减少一次内存分配。
+2. 如果你的请求中只有少量请求header很大，那么应该使用large_client_header_buffers，因为这样就仅需在处理大header时才会分配更多的空间，从而减少无谓的内存空间浪费。
+
+
+
+------
 
 ### Introduction
 

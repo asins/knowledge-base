@@ -1,3 +1,9 @@
+---
+title: "Random随机"
+date: "2019-08-21"
+lastmod: "2019-08-21"
+---
+
 ## Math.random指定随机范围
 
 ```js

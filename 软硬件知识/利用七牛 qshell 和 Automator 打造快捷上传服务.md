@@ -1,8 +1,14 @@
+---
+title: "利用七牛 qshell 和 Automator 打造快捷上传服务"
+date: "2019-08-21"
+lastmod: "2020-05-05"
+---
+
 ### 来源
 
 早前订阅了一个图片上传工具 `iPic`，单单就图片上传这一功能来说它无疑是非常优秀的。无奈我有的时候要上传一些非图片小文件，虽然这个只是个小功能，一个小小的脚本就可以做到，但是想想用到这个功能的时候还要打开`terminal`，emmmm…（纵然本人身为程序员`terminal`一直不会关）。
 
-然后某一天看到了七牛的SDK有命令行工具 [qshell](https://developer.qiniu.com/kodo/tools/1302/qshell) （七牛云有免费对象存储空间），而 macOS 的 `Automator` 又是支持运行 `shell`脚本的，再加上早前利用 `Automator` 做过一项彩色图转灰度图的功能，知道这些功能是可以做成系统服务的…...我有一个大胆的想法。
+然后某一天看到了七牛的 SDK 有命令行工具 [qshell](https://developer.qiniu.com/kodo/tools/1302/qshell) （七牛云有免费对象存储空间），而 macOS 的 `Automator` 又是支持运行 `shell`脚本的，再加上早前利用 `Automator` 做过一项彩色图转灰度图的功能，知道这些功能是可以做成系统服务的…... 我有一个大胆的想法。
 
 ### 实践想法
 
@@ -22,14 +28,14 @@
 
 ### code
 
-这里我们先查阅一下 `qshell` 上传文件的[文档](https://github.com/qiniu/qshell/blob/master/docs/fput.md)和使用示例：
+这里我们先查阅一下 `qshell` 上传文件的[文档](https://github.com/qiniu/qshell/blob/master/docs/fput.md) 和使用示例：
 
 ```
-# 上传本地文件/Users/jemy/Documents/qiniu.jpg到空间if-pbl里面
+# 上传本地文件 /Users/jemy/Documents/qiniu.jpg 到空间 if-pbl 里面
 $ qshell fput if-pbl qiniu.jpg /Users/jemy/Documents/qiniu.jpg
 ```
 
-这里主要是对 `Key` 的构造，即上传文件在七牛存储中的文件名，我选择的构造规则是*[日期]-[时间戳MD5值]-[文件名]*，可以有效规避文件名重复的问题，完整代码如下：
+这里主要是对 `Key` 的构造，即上传文件在七牛存储中的文件名，我选择的构造规则是*『日期』-『时间戳 MD5 值』-『文件名』*，可以有效规避文件名重复的问题，完整代码如下：
 
 ```
 urlencode() {
@@ -66,7 +72,7 @@ echo -ne $links | pbcopy
 - `pbcopy` 命令会把 `echo` 中的内容放置到系统粘贴板中；
 - 关于 `urlencode` ：在上传测试过程中，发现一旦选择的文件列表中含有中文命名的文件，就会导致文件链接构造异常，最后也到不了系统粘贴板中，具体原因不明，所以在构造链接时做一次编码就好，反正浏览器本身也会对编码的链接自行识别；
 - `if [ -f $f ]` 是为了判断文件与文件夹；
-- 考虑到MD5值太长，我只截取了8位；
+- 考虑到 MD5 值太长，我只截取了 8 位；
 - `echo` 的两个参数可以参考[该文](https://blog.csdn.net/lizhi200404520/article/details/8819762)；
 - 请把资源链接的域名改成你对应的。
 
@@ -89,7 +95,7 @@ echo -ne $links | pbcopy
 //static.domain.me/2017-10-16-9f26b83d-image.png
 ```
 
-到这里，只剩下[下载](https://developer.qiniu.com/kodo/tools/1302/qshell)安装 `qshell` 就大功告成：
+到这里，只剩下[下载](https://developer.qiniu.com/kodo/tools/1302/qshell) 安装 `qshell` 就大功告成：
 
 ```
 $ mv ~/Downloads/qshell /usr/local/bin
@@ -97,7 +103,7 @@ $ chmod 755 /usr/local/bin/qshell
 $ qshell account AccessKey SecretKey
 ```
 
-这里还用到了修改权限命令，有兴趣的话可以查看我另一篇文章[服务器搭建—Linux基础知识](https://blog.bingqichen.me/view?id=11)。
+这里还用到了修改权限命令，有兴趣的话可以查看我另一篇文章[服务器搭建—Linux 基础知识](https://blog.bingqichen.me/view?id=11)。
 
 ### 完结
 
@@ -107,4 +113,4 @@ $ qshell account AccessKey SecretKey
 
 除此之外，你还可以在系统设置中为该服务添加快捷键，好了，我去取消订阅 `iPic` 了......
 
-还有值得一提的是，七牛的对象存储免费额度还挺大的，拿来做私家图床还是很不错的，我还配置了CDN美滋滋😁。
+还有值得一提的是，七牛的对象存储免费额度还挺大的，拿来做私家图床还是很不错的，我还配置了 CDN 美滋滋😁。

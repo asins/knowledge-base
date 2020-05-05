@@ -1,3 +1,9 @@
+---
+title: "Chrome Dev Tool 请求时间说明"
+date: "2019-11-13"
+lastmod: "2019-11-13"
+---
+
 ## Chrome Dev Tool 中时间线各阶段代表的意义
 
 另附注一下Chrome Dev Tool 中请求的时间线各阶段代表的意义。 以下内容扒自[Chrome 开发者文档页](https://developer.chrome.com/devtools/docs/network#resource-network-timing)，然后我将它本地化了一下下。

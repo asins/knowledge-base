@@ -1,3 +1,9 @@
+---
+title: "RegExp正则操作"
+date: "2019-08-21"
+lastmod: "2020-03-11"
+---
+
 ## String to RegExp 转义
 
 ```js

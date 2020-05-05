@@ -1,3 +1,9 @@
+---
+title: "H5页面viewport单位自适应"
+date: "2019-08-21"
+lastmod: "2020-04-03"
+---
+
 本文复制于：https://github.com/RaySnow/vw-polyfill/blob/master/other.md
 
 这两年小程序开发火爆，小程序推荐使用的[rpx单位](https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxss.html)，即：750的设计稿，1rpx=1px，750rpx=100vw=100%，这个方案最大的好处在于，设计稿标记的尺寸可以直接用来写css，不需要任何工具计算，开发者无需考虑兼容问题，都由小程序自己去兼容。 这给了我们团队一个启发：为什么我们不把rpx单位或者说这种思想推广开来呢，于是我们提出一个方案：***把rpx用于整个前端开发，包括小程序、h5以及其他，打包时把rpx转换为vw，不支持vw的浏览器做降级，开发者无需考虑单位转换***。

@@ -1,3 +1,9 @@
+---
+title: "Http请求中Form Data与Request Payload的区别"
+date: "2019-08-21"
+lastmod: "2019-08-21"
+---
+
 ## HTTP请求中的Form Data与Request Payload的区别date: 2017-08-10
 
 前端开发中经常会用到AJAX发送异步请求，对于POST类型的请求会附带请求数据。而常用的两种传参方式为：Form Data 和 Request Payload。

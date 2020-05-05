@@ -1,3 +1,9 @@
+---
+title: "http_server访问日志分析"
+date: "2019-08-21"
+lastmod: "2020-05-05"
+---
+
 
 
 cat passport-login.txt |sort|uniq -c|sort -nr > ./passport-access.log
@@ -16,7 +22,7 @@ sort 排序
 cat 2018/12/2018-12-16-taobao-access_log |grep 'http://account.youku.com/static-resources/js/loadFrame.js'|awk -F " " '{print $10}'|awk -F'?' '{gsub(/https?:\/\//,"http://",$1);gsub(/\/i\/[a-zA-Z0-9=]+/,"/i/xxx",$1);gsub(/\/u\/[a-zA-Z0-9=]+/,"/u/xxx",$1);gsub(/\/detail\/show\/[a-zA-Z0-9=]+/,"/detail/show/xxx",$1);gsub(/\/*\"?$/,"",$1);print $1}'|sort|uniq -c|sort -nr
 ```
 
-从日志中搜索`loadFrame.js`文件引用的reffer，得到结果如下：
+从日志中搜索`loadFrame.js`文件引用的 reffer，得到结果如下：
 
 ```
 43160 http://www.youku.com
@@ -32,4 +38,4 @@ cat 2018/12/2018-12-16-taobao-access_log |grep 'http://account.youku.com/static-
 cat cai/logs/cronolog/2019/07/2019-07-03-taobao-access_log |awk -F " " '{print $10}'|awk -F'?' '{gsub(/https?:\/\//,"http://",$1);gsub(/\/i\/[a-zA-Z0-9=]+/,"/i/xxx",$1);gsub(/\/u\/[a-zA-Z0-9=]+/,"/u/xxx",$1);gsub(/\/show\/id_.*?/,"/show/id_xxx",$1);print $1}'|sort|uniq -c|sort -nr
 ```
 
- 
+

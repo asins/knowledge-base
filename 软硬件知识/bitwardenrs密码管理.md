@@ -1,14 +1,20 @@
+---
+title: "bitwardenrs密码管理"
+date: "2020-04-07"
+lastmod: "2020-05-05"
+---
+
 
 ```sh
-#安装Docker
+#安装 Docker
 yum -y install docker
-#启动docker
+#启动 docker
 systemctl start docker
 #开机自启
 systemctl enable docker
 ```
 
-接下来使用Docker拉取bitwarden_rs镜像并运行
+接下来使用 Docker 拉取 bitwarden_rs 镜像并运行
 ```sh
 docker pull bitwardenrs/server:latest
 docker run -d --name bitwarden -v /bw-data/:/data/ \
@@ -18,7 +24,7 @@ docker run -d --name bitwarden -v /bw-data/:/data/ \
 	-p 8880:80 bitwardenrs/server:latest
 ```
 
-### 配置nginx代理
+### 配置 nginx 代理
 
 ```sh
 server {

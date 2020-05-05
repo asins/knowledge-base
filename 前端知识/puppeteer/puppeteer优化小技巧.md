@@ -1,3 +1,9 @@
+---
+title: "puppeteer优化小技巧"
+date: "2019-12-19"
+lastmod: "2019-12-19"
+---
+
 > Puppeteer是一个Node库，它提供了高级API来通过DevTools协议控制Chromium或Chrome。
 
 通过[puppeteer](https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md)我们可以编写脚本模拟浏览器的相关行为，实现以下功能：

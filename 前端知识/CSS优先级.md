@@ -1,3 +1,9 @@
+---
+title: "CSS优先级"
+date: "2019-08-21"
+lastmod: "2019-08-21"
+---
+
 # CSS优先级
 
 不如到 W3C 的网站上看一个究竟。相关的标准在 [这个页面](http://www.w3.org/TR/CSS/ "W3C 的 CSS 标准") 可以看到，目前为止的 CSS 标准有三个: CSS1, CSS2, 以及 CSS3。

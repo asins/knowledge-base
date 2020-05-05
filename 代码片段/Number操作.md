@@ -1,3 +1,9 @@
+---
+title: "Number操作"
+date: "2019-08-21"
+lastmod: "2020-02-24"
+---
+
 
 
 # JS Number操作

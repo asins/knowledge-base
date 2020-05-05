@@ -1,3 +1,9 @@
+---
+title: "xhr操作"
+date: "2019-08-21"
+lastmod: "2019-08-21"
+---
+
 ## Headers操作
 
 ```js

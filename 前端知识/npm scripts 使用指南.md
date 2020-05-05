@@ -1,3 +1,9 @@
+---
+title: "npm scripts 使用指南"
+date: "2019-08-21"
+lastmod: "2019-08-21"
+---
+
 # npm scripts 使用指南
 
 Node 开发离不开 npm，而脚本功能是 npm 最强大、最常用的功能之一。本文介绍如何使用 npm 脚本（npm scripts）。

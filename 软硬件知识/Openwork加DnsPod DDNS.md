@@ -1,3 +1,9 @@
+---
+title: "Openwork加DnsPod DDNS"
+date: "2019-08-21"
+lastmod: "2020-05-05"
+---
+
 # Openwork 加 DnsPod DDNS
 
 首先登陆到你的路由器，安装 wget，因为 OpenWrt 默认自带的基于 busybox 的 wget 无法处理 HTTPS 请求，而 DnsPod 的 API 处于安全考虑，强制使用 HTTPS 连接。下面的例子中
@@ -29,7 +35,7 @@ crontab -e
 
 上述的命令表示每 5 分钟检查一次域名更新，如果发现 IP 有变化的话，就自动更新相应的域名（www.test.com）。
 
-- `token` DnsPod中创建的值，需要这里的值是DnsPod中id,token的组合
+- `token` DnsPod 中创建的值，需要这里的值是 DnsPod 中 id,token 的组合
 - `test.com`，这个替换成你在 DnsPod 解析的域名
 - `www`，这个是要解析的子域名
 
@@ -121,7 +127,7 @@ dns_update() {
     record_id=$(echo $record_id | sed 's/.\+\[{"id":"\([0-9]\+\)".\+/\1/')
 
     # Update the record
-    local result=$(api_post "Record.Ddns" "domain_id=${domain_id}&record_id=${record_id}&record_line=默认&sub_domain=${2}")
+    local result=$(api_post "Record.Ddns" "domain_id=${domain_id}&record_id=${record_id}&record_line= 默认 &sub_domain=${2}")
     result_code=$(echo $result | sed 's/.\+{"code":"\([0-9]\+\)".\+/\1/')
     result_message=$(echo $result | sed 's/.\+,"message":"\([^"]\+\)".\+/\1/')
 
@@ -143,10 +149,10 @@ dns_update "$domain" "$subdomain"
 ```
 
 这里有个更好的实现，是否能更新下？其初始步骤：
-下载压缩包http://files.vinoca.org/sddns_0.0.9-4_all.tar.gz，解压后上传到路由，本例在/etc
-1.修改sddns权限为0755。
-2.修改sddns.conf里面的token、main_domain为你自己的，sub_domain为域名前缀（比如www）
-3.在/usr/bin/创建一个新文件dnspod，权限0755，内容如下
+下载压缩包 http://files.vinoca.org/sddns_0.0.9-4_all.tar.gz，解压后上传到路由，本例在 /etc
+1. 修改 sddns 权限为 0755。
+2. 修改 sddns.conf 里面的 token、main_domain 为你自己的，sub_domain 为域名前缀（比如 www）
+3. 在 /usr/bin/ 创建一个新文件 dnspod，权限 0755，内容如下
 
 ```sh
 #!/bin/sh
@@ -154,11 +160,11 @@ sleep 10
 /etc/sddns
 ```
 
-4.在/lib/netifd/ppp-up最后面加一行
+4. 在 /lib/netifd/ppp-up 最后面加一行
 
 ```sh
 /usr/bin/dnspod
 ```
 
-在pppoe拨号10秒后运行sddns，只要拨号成功，就能更新A记录IP。这样的方式可以避免被dnspod锁掉。
+在 pppoe 拨号 10 秒后运行 sddns，只要拨号成功，就能更新 A 记录 IP。这样的方式可以避免被 dnspod 锁掉。
 

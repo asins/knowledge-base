@@ -1,3 +1,9 @@
+---
+title: "翻墙代理gost安装"
+date: "2019-08-21"
+lastmod: "2019-08-21"
+---
+
 ## 安装
 
 1. 打开页面<https://github.com/ginuerzh/gost/releases>下载最新linux版本

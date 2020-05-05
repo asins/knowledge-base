@@ -1,3 +1,9 @@
+---
+title: "VSCode 调试中 launch.json 配置不完全指南"
+date: "2019-08-21"
+lastmod: "2019-08-21"
+---
+
 # VSCode 调试中 launch.json 配置不完全指南
 
 经常使用 VSCode 的同学多多少少会看到项目中有这么一个文件夹 `.vscode`，这是一个在 VSCode 软件上才能发挥作用的配置文件夹，它一般是跟随项目的，其用途与我们平时看到的 `jsconfig.json`, `.editor.config` 等相似，都是为了对工程做更多的约束，或者对代码做更多的规范化处理。
