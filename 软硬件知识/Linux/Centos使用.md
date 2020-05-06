@@ -9,16 +9,6 @@ lastmod: "2020-03-09"
 usermod -aG wheel newuser
 ```
 
-
-
-### 更新语言
-
-```bash
-yum install langpacks-zh_CN.noarch
-```
-
-
-
 ### Mac上挂载nfs硬盘
 
 ```sh

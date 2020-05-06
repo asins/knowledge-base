@@ -204,7 +204,7 @@ baseURL = "https://blog.nootn.com/"
 languageCode = "zh-cn"
 title = "简单其实不简单"
 theme = "hugo-lamp"
-# googleAnalytics = "UA-22926366-1"       # Google Analytics UA number
+# googleAnalytics = ""       # Google Analytics UA number
 uglyurls = true
 
 [params]

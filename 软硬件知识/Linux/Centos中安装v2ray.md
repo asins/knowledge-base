@@ -4,6 +4,43 @@ date: "2020-04-18"
 lastmod: "2020-04-20"
 ---
 
+## 系统配置
+
+### 更新语言
+
+主要是为了支持中文显示
+
+```bash
+yum install langpacks-zh_CN.noarch -y
+```
+
+
+
+### 开启bbr加速
+
+```bash
+echo net.core.default_qdisc=fq >> /etc/sysctl.conf
+echo net.ipv4.tcp_congestion_control=bbr >> /etc/sysctl.conf
+
+# 保存生效
+sysctl -p
+
+# 查看配置情况
+sysctl net.ipv4.tcp_available_congestion_control
+# 输出像这样就OK了
+#net.ipv4.tcp_available_congestion_control = bbr cubic reno
+
+# 检测 BBR 是否开启
+lsmod | grep bbr
+# 输出像这样就OK了
+#tcp_bbr                20480  14
+
+```
+
+
+
+
+
 ## Nginx安装及配置
 
 安装参考了https://tlanyan.me/v2ray-traffic-mask/
@@ -17,6 +54,8 @@ yum install nginx -y
 ```
 
 #### 配置nginx：
+
+将下面配置保存为`/etc/nginx/conf.d/blog.nootn.com.conf`文件
 
 ```nginx
 server {
@@ -69,6 +108,13 @@ server {
   }
 }
 ```
+
+```shell
+# 设置开机启动
+systemctl enable nginx
+```
+
+
 
 #### 防火墙端口放行
 
@@ -237,12 +283,17 @@ ss -ntlp | grep v2ray
 
 
 
-#### 防火墙端口放行
+### 解除SeLinux限制
 
-```sh
-# firewalld放行端口（适用于CentOS7/8）
-firewall-cmd --permanent --add-port=28581/tcp # 28581改成你配置文件中的端口号
-firewall-cmd --reload
+上面的操作后，nginx可能会报错：
+
+```log
+failed (13: Permission denied) while connecting to upstream, client
 ```
 
+这主要是因为SeLinux的限制导致，可以执行下面的命令：
+
+```shell
+setsebool -P httpd_can_network_connect 1
+```
 
