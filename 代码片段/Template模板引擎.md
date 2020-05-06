@@ -1,5 +1,5 @@
 ---
-title: "Template模板引擎"
+title: "Template 模板引擎"
 date: "2019-08-21"
 lastmod: "2019-08-21"
 ---
@@ -53,7 +53,7 @@ console.log(TemplateEngine(tpl)({name: "Krasimir Tsonev", profile: {age: 29}}));
 // Out: <p>Hello, my name is Krasimir Tsonev. I'm 29 years old.</p>
 ```
 
-## 三、HTML字符转义
+## 三、HTML 字符转义
 
 ```js
 function encodeHTML(str) {

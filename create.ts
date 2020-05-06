@@ -2,6 +2,8 @@ import { resolve, extname, basename } from "https://deno.land/std@v0.42.0/path/m
 
 const { readDir, readFile, lstat } = Deno;
 
+const entryPath = Deno.args[0] || './';
+
 async function getFileTxt(path: string) {
   const decoder = new TextDecoder('utf-8');
   const text = decoder.decode(await readFile(path));
@@ -24,7 +26,9 @@ async function formatFile(path: string, dirEntry: Deno.DirEntry) {
 
 
   const fileInfo = await lstat(path);
-  const title = dirEntry.name.replace('.md', '');
+  const ext = extname(dirEntry.name);
+  const title = basename(dirEntry.name, ext);
+
   // console.log(Object.keys(fileInfo));
   const creatDate = formatDate(fileInfo.birthtime); // 文件创建时间
   const modified = formatDate(fileInfo.mtime); // 文件修改时间
@@ -60,7 +64,6 @@ async function formatMdFileInDir(dirPath: string) {
 }
 
 type Formatter = (val: number, pattern: string) => string;
-
 type Formatters = { [ token: string ]: Formatter; };
 type FormattersNumber = { [ token: string ]: number; };
 
@@ -124,4 +127,4 @@ function formatDate(date: Date | null, fmt = 'yyyy-MM-dd', opt: Formatters = {})
 }
 
 
-formatMdFileInDir('./');
+formatMdFileInDir(entryPath);
