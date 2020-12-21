@@ -21,9 +21,29 @@ lastmod: "2020-03-11"
  * XRegExp.escape('Escaped? <.>');
  * // -> 'Escaped\?\ <\.>'
  */
-var escape = function(str) {
+var regStringEscape = function(str) {
     return String(str).replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
 };
+```
+
+
+
+# 创建一个正则对象
+
+```js
+/**
+ * 通过StringRegExp创建正则对象
+ * 注意：字符串中的反斜杠必须通过转义处理，不然无法正常识别出
+ */
+function createRegExp(regStr) {
+  var ref = /^\/(.*?)\/([gimsuy]+)?$/.exec(regStr);
+  if(!ref) return;
+  
+  return new RegExp(ref[1], ref[2]);
+}
+
+var reg = createRegExp('/\\d/g');
+reg.exec('23aa556', '-'); // --aa---
 ```
 
 

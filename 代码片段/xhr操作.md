@@ -29,3 +29,6 @@ function parseHeaders(headers) {
 }
 ```
 
+### 简单的ajax操作文件
+
+ [ajax.js](./assets/ajax.js) 

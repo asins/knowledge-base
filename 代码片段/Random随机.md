@@ -21,6 +21,10 @@ function getColor(){
 	return '#' + ('00000' + (Math.random()*0x1000000<<0).toString(16)).slice(-6)
 }
 
+function randomColor() {
+	return '#' + Math.floor(Math.random()*0xffffff).toString(16);
+}
+
 
 // 颜色翻转取反
 function colorReverse(oldColor){

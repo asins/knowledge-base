@@ -34,11 +34,21 @@ ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 sudo spctl --master-disable
 ```
 
-### 更新软件内文件签名
+### 更新软件内文件签名 
+
+打开软件时会提示`“XX”将对您的电脑造成伤害。您应该将它移到废纸箱。` 
 
 ```sh
-sudo codesign --force --deep --sign - / 软件 / 路径 /
+sudo codesign --force --deep --sign - /软件/路径/
 ```
+
+### MacOS 10.15提示文件损坏
+
+```sh
+sudo xattr -rd com.apple.quarantine /Applications/xxxxxx.app
+# 将上面的 xxxxxx.app 换成你的App名称
+```
+
 
 ### 下载个人 dotfiles
 

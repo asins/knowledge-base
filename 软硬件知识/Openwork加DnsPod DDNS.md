@@ -75,9 +75,9 @@ get_ip() {
     #curl --silent $inter
 }
 
-# Send the API request tobeyo@sina.com DnsPod API
-# @param1: The command tobeyo@sina.com execute, for example, Info.Version and etc.
-# @param2: The parameters tobeyo@sina.com send tobeyo@sina.com the API, for example, domain='domain.tld'
+# Send the API request DnsPod API
+# @param1: The command execute, for example, Info.Version and etc.
+# @param2: The parameters send the API, for example, domain='domain.tld'
 api_post() {
     # Client agent
     local agent="Tommy DnsPod Client/0.2.0 (tommy@gen-new.com)"
@@ -93,7 +93,7 @@ api_post() {
 }
 
 # Lookup current ip
-# @param1: The domain tobeyo@sina.com nslookup
+# @param1: The domain nslookup
 dns_lookup() {
     local server="223.5.5.5"
     local os=`uname -n`
@@ -105,7 +105,7 @@ dns_lookup() {
 }
 
 # Update the DNS record
-# @param1: The domain name tobeyo@sina.com update, for example, 'domain.tld'
+# @param1: The domain name update, for example, 'domain.tld'
 # @param2: The subdomain, for example, 'www'
 dns_update() {
     local current_ip=$(get_ip)
@@ -114,7 +114,7 @@ dns_update() {
     echo "${current_ip} : ${dns_ip}"
 
     if [ "$current_ip" = "$dns_ip" ]; then
-	echo "No need tobeyo@sina.com update DDNS."
+	echo "No need update DDNS."
         return 0
     fi
 

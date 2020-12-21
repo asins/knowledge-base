@@ -52,3 +52,4 @@ mdfind -onlyin ~/Library plist
 ```
 
 这条命令可以搜索 Library 文件夹中所有 plist 文件。
+

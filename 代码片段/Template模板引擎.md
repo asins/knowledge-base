@@ -8,11 +8,11 @@ lastmod: "2019-08-21"
 
 ```js
 var TemplateEngine = function(tpl, data) {
-    const re = /\{\{([^}]+)?\}\}/g;
-    while (re.exec(tpl)) {
-        tpl = tpl.replace(RegExp.lastMatch, data[RegExp.$1]);
-    }
-    return tpl;
+  const re = /\{\{([^}]+)?\}\}/g;
+  while (re.exec(tpl)) {
+    tpl = tpl.replace(RegExp.lastMatch, data[RegExp.$1]);
+  }
+  return tpl;
 }
 
 var tpl = '<p>Hello, my name is {{name}}. I\'m {{age}} years old.</p>';

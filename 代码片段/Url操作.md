@@ -28,6 +28,21 @@ function getDomain(url, sublevel){
 
 ## URL简单转换（不支持多层对象）
 
+### URL中获取指定参数
+
+```js
+// 注意name只能是字母，方法未做处理
+function getQueryString(name) {
+  var reg = new RegExp("(\\?|&)" + name + "=([^&]*)(&|$)");
+  var r = reg.exec(window.location.search)
+  return r != null ? decodeURIComponent(r[2]) : null;
+}
+
+getQueryString('DEBUG');
+```
+
+
+
 ### url -> Obj
 
 注意这个方法不支持URL中带[]的对像传参
@@ -42,7 +57,7 @@ function getDomain(url, sublevel){
 export function params(url) {
     url = url || location.search || location.href;
     const params = {};
-    const reg = /([^\s&?#=\/]+)=([^\s&?#=]+)/g;
+    const reg = /([^\s&?#=/]+)=([^\s&?#=]+)/g;
     while (reg.exec(url)) {
         const key = decodeURIComponent(RegExp.$1);
         const val = decodeURIComponent(RegExp.$2.replace('+', '%20'));
@@ -56,6 +71,25 @@ export function params(url) {
     }
     return params;
 }
+
+// 解析url参数
+export function parseUrlParam(url) {
+  let questionIndex = url.indexOf('?');
+  const urlParams = url
+    ? url.substring(questionIndex + 1).split('&')
+    : [];
+  const params = {};
+  for (let i = 0; i < urlParams.length; i++) {
+    const kv = urlParams[i];
+    const equalPos = kv.indexOf('=');
+    if (equalPos === -1) {
+      continue;
+    }
+    const key = kv.substring(0, equalPos);
+    const value = decodeURIComponent(kv.substring(equalPos + 1));
+    key && value && (params[key] = value);
+  }
+  return params;
 ```
 
 ### Obj -> Url
@@ -72,8 +106,8 @@ export function stringify(params = {}, ignoreArr = []) {
         let val = params[key];
         if (ignoreArr.indexOf(key) === -1 && val !== '' && val != null) {
             if (!Array.isArray(val)) val = [ val ];
-            val.forEach(function(val) {
-                arr.push(encodeURIComponent(key) + '=' + encodeURIComponent(val));
+            val.forEach(function(d) {
+                arr.push(encodeURIComponent(key) + '=' + encodeURIComponent(d));
             });
         }
     }
