@@ -96,6 +96,10 @@ http {
 # 安装最新版本的trojan
 # sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/trojan-gfw/trojan-quickstart/master/trojan-quickstart.sh)"
 
+# 通过brew安装
+brew tap trojan-gfw/trojan
+brew cask install trojanx
+
 # 一键安装脚本
 sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/johnrosen1/trojan-gfw-script/master/vps.sh)"
 # 注：若已有证书，请放置于/etc/trojan/
