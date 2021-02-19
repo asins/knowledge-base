@@ -184,3 +184,25 @@ checkOneNumberRegion('1');
 
 
 
+### 将数字平均成N等份
+
+```js
+// 将take数字平均分成len等份，不出现浮点数，确保之合等于take
+var take = 345;
+var len = 7;
+var fn = (take, len) => Array.from(Array(len), (_, i) => Math.trunc(take / len)).map((n, i) => i < take - (n * len) ? n + 1 : n);
+
+for (var i = 1; i <= len; i++) {
+    var r = fn(take, i);
+    console.log(`${i}等份：`, r, r.reduce((x, y) => x + y, 0));
+}
+
+// 1等份： [345] 345
+// 2等份： [173, 172] 345
+// 3等份： [115, 115, 115] 345
+// 4等份： [87, 86, 86, 86] 345
+// 5等份： [69, 69, 69, 69, 69] 345
+// 6等份： [58, 58, 58, 57, 57, 57] 345
+// 7等份： [50, 50, 49, 49, 49, 49, 49] 345
+```
+

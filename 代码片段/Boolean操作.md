@@ -45,3 +45,29 @@ function isTrue(value){
 }
 ```
 
+
+
+### 转换值是boolean、number、JSONstring的字符串的数据类型
+
+```js
+// 转换值是boolean、number、JSONstring的字符串的数据类型
+function parseValue(value) {
+  if (typeof value === 'string') {
+    const valueNumber = Number(value);
+    if (!Number.isNaN(valueNumber) && value.trim() !== '') {
+      value = valueNumber;
+    } else if (value !== null && (value.toLowerCase() === 'true' || value.toLowerCase() === 'false')) {
+      value = value.toLowerCase() === 'true';
+    } else if (value[0] === '{' && value[value.length - 1] === '}') {
+      try { value = JSON.parse(value); } catch (e) { /* do something */ }
+    }
+  }
+
+  return value;
+}
+
+parseValue('{"a": 345}'); // {a: 345}
+parseValue('false'); // false
+parseValue('345'); // 345
+```
+

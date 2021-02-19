@@ -21,3 +21,4 @@ GRANT ALL PRIVILEGES ON nextcloud.* TO nextclouduser@localhost;
 flush privileges;
 
 ```
+
