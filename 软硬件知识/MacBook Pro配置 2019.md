@@ -77,12 +77,32 @@ git clone git@github.com:asins/dotfiles.git ~/Code/dotfiles
 | brew outdated       | 列出过时的软件包（已安装但不是最新版本） |
 | brew upgrade [wget] | 全部或指定更新过时的软件包               |
 
+上面代码可能无法正常执行，我们生活在大陆的可能无法访问`raw.githubusercontent.com` 的情况，可将下面一行写入`/etc/hosts`文件中：
 
+```bash
+# 电脑解析不了域名时加入
+199.232.68.133  raw.githubusercontent.com
+```
 
 ### 使用 Homebrew 管理 Mac 的后台服务
 
 ```bash
 brew tap homebrew/services
+```
+
+#### git
+
+系统自带的git软件执行`git status`时中文显示成八进制的字符编码，解决办法将git 配置文件 `core.quotepath`项设置为false。
+
+```bash
+git config --global core.quotepath false
+```
+
+git的一些设置：
+
+```bash
+ln -sfv ~/Code/dotfiles/.gitignore ~/.gitignore
+ln -sfv ~/Code/dotfiles/.gitconfig ~/.gitconfig
 ```
 
 
