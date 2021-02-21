@@ -84,107 +84,23 @@ git clone git@github.com:asins/dotfiles.git ~/Code/dotfiles
 199.232.68.133  raw.githubusercontent.com
 ```
 
-### 使用 Homebrew 管理 Mac 的后台服务
+####  brew services
+
+使用 Homebrew 管理 Mac 的后台服务
 
 ```bash
 brew tap homebrew/services
 ```
 
-#### git
-
-系统自带的git软件执行`git status`时中文显示成八进制的字符编码，解决办法将git 配置文件 `core.quotepath`项设置为false。
-
-```bash
-git config --global core.quotepath false
-```
-
-git的一些设置：
-
-```bash
-ln -sfv ~/Code/dotfiles/.gitignore ~/.gitignore
-ln -sfv ~/Code/dotfiles/.gitconfig ~/.gitconfig
-```
-
-
-
-#### nginx
-
-```sh
-# 安装
-brew install nginx
-
-# 配置直接使用 Dotfiles 中定义的
-ln -sfv /Users/asins/Code/dotfiles/nginx/nginx.conf /usr/local/etc/nginx/nginx.conf
-sudo mkdir /var/log/nginx
-sudo chmod 777 /var/log/nginx
-
-# 加管理员权限
-sudo chown root:wheel /usr/local/opt/nginx/bin/nginx
-sudo chmod u+s /usr/local/opt/nginx/bin/nginx
-
-# 加入 launchctl 启动控制
-mkdir -p ~/Library/LaunchAgents
-cp /usr/local/opt/nginx/homebrew.mxcl.nginx.plist ~/Library/LaunchAgents/
-launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.nginx.plist
-
-sudo nginx #打开 nginx
-nginx -s reload|reopen|stop|quit  #重新加载配置|重启|停止|退出 nginx
-nginx -t   #测试配置是否有语法错误
-```
-
-
-| 命令                           | 功能说明      |
-| ------------------------------ | ------------- |
-| sudo brew services start nginx | 启动 nginx 服务 |
-| sudo brew services stop nginx  | 关闭 nginx 服务 |
-| nginx -v                       | 查看 nginx 版本 |
-| nginx -s reload                | 重新加载 nginx |
-| nginx -s stop                  | 停止 nginx     |
-
-#### polipo
-
-polipo 是一个 Web proxy，用于将 sockets5 服务转换为 http 服务。
-
-```sh
-sudo mkdir /var/log/polipo
-sudo chmod 777 /var/log/polipo
-
-vim /usr/local/Cellar/polipo/1.1.1/homebrew.mxcl.polipo.plist
-```
-
-在文件中添加设置`socksParentProxy`，变成如下样子：
-
-```xml 
-# file: /usr/local/Cellar/polipo/1.1.1/homebrew.mxcl.polipo.plist
-<array>
-  <string>/usr/local/opt/polipo/bin/polipo</string>
-  <string>socksParentProxy=localhost:1080</string>
-</array>
-```
-
-#### ripgrep
-
-命令行快速搜索工具
-
-```sh
-# 安装
-brew install ripgrep
-```
-
-
-
-#### mariadb
-
-Mysq 数据库的开源版本，不再受公司限制。
-
-### brew cask
+#### brew cask
 
 通过 brew cask 安装软件，管理起来感觉更方便。
 
 ```sh
-brew tap caskroom/cask
+brew install cask
+
 # 安装最新的 chrome 浏览器
-brew cask install google-chrome
+brew install google-chrome
 #安装 Java
 brew install java
 ```
@@ -205,7 +121,93 @@ brew tap buo/cask-upgrade
 brew cu -facy
 ```
 
-#### fish
+
+
+### git
+
+系统自带的git软件执行`git status`时中文显示成八进制的字符编码，解决办法将git 配置文件 `core.quotepath`项设置为false。
+
+```bash
+git config --global core.quotepath false
+```
+
+git的一些设置：
+
+```bash
+ln -sfv ~/Code/dotfiles/.gitignore ~/.gitignore
+ln -sfv ~/Code/dotfiles/.gitconfig ~/.gitconfig
+```
+
+### nginx
+
+```sh
+# 安装
+brew install nginx
+
+# 配置直接使用 Dotfiles 中定义的
+ln -sfv ~/Code/dotfiles/nginx/nginx.conf /usr/local/etc/nginx/nginx.conf
+sudo mkdir /var/log/nginx
+sudo chmod 777 /var/log/nginx
+
+# 加管理员权限
+sudo chown root:wheel /usr/local/opt/nginx/bin/nginx
+sudo chmod u+s /usr/local/opt/nginx/bin/nginx
+
+# 加入 launchctl 启动控制
+mkdir -p ~/Library/LaunchAgents
+cp /usr/local/opt/nginx/homebrew.mxcl.nginx.plist ~/Library/LaunchAgents/
+launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.nginx.plist
+
+sudo nginx #打开 nginx
+nginx -s reload|reopen|stop|quit  #重新加载配置|重启|停止|退出 nginx
+nginx -t   #测试配置是否有语法错误
+```
+
+| 命令                           | 功能说明      |
+| ------------------------------ | ------------- |
+| sudo brew services start nginx | 启动 nginx 服务 |
+| sudo brew services stop nginx  | 关闭 nginx 服务 |
+| nginx -v                       | 查看 nginx 版本 |
+| nginx -s reload                | 重新加载 nginx |
+| nginx -s stop                  | 停止 nginx     |
+
+### ~~polipo~~
+
+polipo 是一个 Web proxy，用于将 sockets5 服务转换为 http 服务。
+
+Update 2021-02-20: 因为使用了 
+
+```sh
+sudo mkdir /var/log/polipo
+sudo chmod 777 /var/log/polipo
+
+vim /usr/local/Cellar/polipo/1.1.1/homebrew.mxcl.polipo.plist
+```
+
+在文件中添加设置`socksParentProxy`，变成如下样子：
+
+```xml 
+# file: /usr/local/Cellar/polipo/1.1.1/homebrew.mxcl.polipo.plist
+<array>
+  <string>/usr/local/opt/polipo/bin/polipo</string>
+  <string>socksParentProxy=localhost:1080</string>
+</array>
+```
+
+### ripgrep
+
+命令行快速搜索工具
+
+```sh
+# 安装
+brew install ripgrep
+```
+
+### mariadb
+
+Mysq 数据库的开源版本，不再受公司限制。
+
+### fish
 
 fish 是个全新的 shell 工具，比 bash 之类有更好的交互提示，比 zsh 有更好的性能，缺点是语法不是标准的 sh，但 shell 脚本用的不多，我愿意接受这个。
 
@@ -219,12 +221,14 @@ sudo bash -c "echo '/usr/local/bin/fish' >> /etc/shells"
 
 # 安装 fish 包管理器
 curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisherman
-# 安装 fish 的 z 插件
+
+# 快速跳转到其它目录
 fisher install z
-fisher install rafaelrinaldi/pure
+# 很不错的主题
+fisher install pure-fish/pure
 ```
 
-#### google-chrome
+### google-chrome
 google 浏览器
 
 ```bash
@@ -236,58 +240,81 @@ sudo touch /Library/Google/GoogleSoftwareUpdate && sudo chown -R root:wheel /Lib
 sudo touch ~/Library/Google/GoogleSoftwareUpdate && sudo chown -R root:wheel ~/Library/Google/GoogleSoftwareUpdate
 ```
 
-#### google-chrome-canary
+### google-chrome-canary
 google 开发者浏览器，新特性首发地
 
-#### firefox-developer-edition
+### firefox-developer-edition
 Firefox 开发者浏览器，chrome 一家独大也是危险的
 
-#### enpass
+### enpass
 密码管理工具
 
-#### clipy
+### clipy
 剪贴板扩展工具
 
-#### charles
+### charles
 Http 代理工具
 
-#### java
+### java
 java 运行环境，因为项目要求只能安装 java8 的版本，需要以下面的方式安装：
 
+** jdk8 **
+
 ```sh
-brew cask install homebrew/cask-versions/adoptopenjdk8
+brew install homebrew/cask-versions/adoptopenjdk8
+# java运行环境变量
+set -gx JAVA_HOME (/usr/libexec/java_home -F)
+set -gx TOMCAT_HOME "/usr/local/opt/tomcat@7/libexec"
+set -gx PATH $PATH $TOMCAT_HOME/bin
+```
+
+** java最新 **
+
+```bash
+set -g fish_user_paths "/usr/local/opt/openjdk/bin" $fish_user_paths
+set -gx CPPFLAGS "-I/usr/local/opt/openjdk/include"
 ```
 
 
-
-#### qingg
+### qingg
 五笔输入法
 
-#### typora
+### typora
 MarkDown 语法的免费笔记记录工具
 
-#### shadowsocksx
+### shadowsocksx
 这个不能说
 
-#### sublime-text
+### sublime-text
 编辑器
 
-#### iterm2
-shell 客户端
+### iterm2
+shell 客户端，以下是分屏常用快捷键：
 
-#### yyets
+- `command + t`：新建窗口
+- `command + d`：垂直分屏，
+- `command + shift + d`：水平分屏。
+- `command + ]` 和 `command + [` : 在最近使用的分屏直接切换.
+- `command + alt + 方向键`：切换到指定位置的分屏。
+- `command + 数字`：切换标签页。
+- `command + 方向键`：按方向切换标签页。
+- `command + shift + s`：保存当前窗口快照。
+- `command + alt + b`：快照回放。很有意思的功能，你可以对你的操作根据时间轴进行回放。可以拖动下方的时间轴，也可以按左右方向键
+- `Command + Shift + h` 呼出粘贴历史
+
+### yyets
 人人影视客户端
 
-#### imageoptim
+### imageoptim
 图片无损压缩工具
 
-#### nodejs
+### nodejs
 
 服务端 JS 运行环境
 
-#### macvim
+### macvim
 
-#### vscode
+### vscode
 
 这个软件更新频率挺高，brew 安装反而慢了，直接安装了。
 
