@@ -1,241 +1,395 @@
----
-title: "TypeScript工具方法"
-date: "2019-11-07"
-lastmod: "2019-11-07"
----
+在实际使用 `TypeScript` 的开发过程中，得益于这些高级类型于工具类型，我们可以更方便的构建出我们需要的类型。
 
-TypeScript提供一些工具类型来帮助常见的类型转换。这些类型是全局可见的。
+比如说：我们在后台登陆信息认证中构建了一个用户，它是 `LoginUser` 的类型， 它包含了：“name 用户名”、“email 邮箱”、“roles：角色”等多个信息，其中 name 可能不是必选项。但是未登录时它肯定是一个 **Undefined** 的类型。当进行权限认证时它是只读的，当进行用户名 name 进行修改时 *name* 是必选属性。
 
-## 目录
-
-- `Partial`: TypeScript 2.1
-- `Readonly`: TypeScript 2.1
-- `Record`: TypeScript 2.1
-- `Pick`: TypeScript 2.1
-- `Exclude`: TypeScript 2.8
-- `Extract`: TypeScript 2.8
-- `NonNullable`: TypeScript 2.8
-- `ReturnType`: TypeScript 2.8
-- `InstanceType`: TypeScript 2.8
-- `Required`: TypeScript 2.8
-- `ThisType`: TypeScript 2.8
-
-## `Partial`
-
-构造类型`T`，并将它所有的属性设置为可选的。它的返回类型表示输入类型的所有子类型。
-
-### 例子
-
-```ts
-interface Todo {
-    title: string;
-    description: string;
-}
-
-function updateTodo(todo: Todo, fieldsToUpdate: Partial<Todo>) {
-    return { ...todo, ...fieldsToUpdate };
-}
-
-const todo1 = {
-    title: 'organize desk',
-    description: 'clear clutter',
+```typescript
+type LoginUser = {
+  name?: string;
+  email: string;
+  roles: string[];
 };
 
-const todo2 = updateTodo(todo1, {
-    description: 'throw out trash',
-});
-```
+type CurrentUser = LoginUser | undefined;
 
-## `Readonly`
-
-构造类型`T`，并将它所有的属性设置为`readonly`，也就是说构造出的类型的属性不能被再次赋值。
-
-### 例子
-
-```ts
-interface Todo {
-    title: string;
-}
-
-const todo: Readonly<Todo> = {
-    title: 'Delete inactive users',
+type Muteable<T> = {
+  +readonly [P in keyof T]: T[P];
 };
-
-todo.title = 'Hello'; // Error: cannot reassign a readonly property
+type CertUser = Muteable<LoginUser>;
+type SuerUser = Required<LoginUser>;
 ```
 
-这个工具可用来表示在运行时会失败的赋值表达式（比如，当尝试给[冻结对象](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)的属性再次赋值时）。
+如果每个类型都重新声明一个新类型来满足程序，代码将会变得臃肿，反之如果我们高级类型来解决时，他将会变得简单高效。
 
-### `Object.freeze`
+## 一、高级类型
 
-```ts
-function freeze<T>(obj: T): Readonly<T>;
+### 泛型
+
+泛型可以理解为一个变量，这个变量的值是一个类型。和函数的参数一样。它通常配合一组尖括号进行声明使用：
+
+```typescript
+// 一个带有 name 属性的类型
+type Cup = {
+  name: string;
+};
+// 声明一个接收三个参数的函数，
+// 第一个参数是必须拥有name属性的 object
+// 第二个参数设置为第一个参数这个对象中的一个属性
+// 第三个参数设置为第二个参数的属性值
+const addAttr = <T extends {name: string}, K, U>(obj: T, attrName: K, attrValue: U) => {
+  const temp: any = {};
+  temp[attrName] = attrValue;
+  return {...obj, ...temp};
+};
+// 函数名后使用尖括号传入限定类型
+addAttr<Cup, string, number>({ name: 'mgdi' }, 'age', 18);
 ```
 
-## `Record`
+### 联合类型
 
-构造一个类型，其属性名的类型为`K`，属性值的类型为`T`。这个工具可用来将某个类型的属性映射到另一个类型上。
+联合类型是指将多个类型结合，使用 **｜** 符号进行连接。当使用这个类型时，值只需满足其中一个类型即可
 
-### 例子
-
-```ts
-interface PageInfo {
-    title: string;
+```typescript
+// 声明Foo类型
+type Foo = {
+  width: number;
 }
+// 声明一个Bar类型
+type Bar = {
+  height: number;
+}
+// 声明一个Foo, Bar的联合类型
+type Baz = Foo | Bar;
+// 赋值时只需要满足其中一个类型即可
+const baz: Baz = {
+  width: 20,
+//  height: 10
+}
+```
 
-type Page = 'home' | 'about' | 'contact';
+### 字面量类型
 
-const x: Record<Page, PageInfo> = {
-    about: { title: 'about' },
-    contact: { title: 'contact' },
-    home: { title: 'home' },
+字面量类型与联合类型很像，不同之处在于，联合类型用 **|** 分割的是类型，而字面量类型分割的是值。
+
+```typescript
+type Roles = 'student' | 'teacher' | 'kids';
+const ading: Roles = "kids";
+```
+
+### 枚举类型
+
+**enum** 类型通常也是多个键值对的集合，使用其类型时赋值只能是声明的值之一。
+
+```typescript
+enum UserRoleType {
+  GHOST = "ghost",
+  EDITOR = "editor",
+  PUBLISH = "publish",
+  ADMIN = "admin",
+}
+const ading: UserRoleType = UserRoleType.ADMIN;
+```
+
+### 交叉类型
+
+交叉类型是多个类型的**集合**，使用 “ & ”连接多个类型，使用其作为值类型时必需同时满足所有类型。
+
+```typescript
+// 声明Foo类型
+type Foo = { width: number }
+// 声明一个Bar类型
+type Bar = { height: number }
+// 声明一个Foo, Bar的交叉类型
+type Baz = Foo & Bar;
+const baz: Baz = {
+  width: 3,
+  heght: 4,
+}
+```
+
+### 类型断言
+
+类型断言指将一个不确定的类型断言为一个自己确定的类型。通常使用一组尖括号 “<T>” 配合断言的目标类型 T 类型使用, 比如说在后端的登录的用户角色认证。
+
+```typescript
+import { Request } from 'express';
+type CurrentUser = {
+  username: string;
+  email?: string;
+};
+const getCurrentUser = (req: Request): CurrentUser => {
+  return <CurrentUser>req.currentUser;
 };
 ```
 
-## `Pick`
+### 类型别名
 
-从类型`T`中挑选部分属性`K`来构造类型。
+声明一个别名来代指当前类型，它是别名，不是一个新的类型。
 
-### 例子
+```typescript
+type MyString = string;
+```
 
-```ts
-interface Todo {
-    title: string;
-    description: string;
-    completed: boolean;
+
+## 二、关键字
+
+### keyof
+
+keyof T: 返回一个由构造类型 T 的所有属性组成的字面量类型
+
+```typescript
+type Light = {
+  light: number;
+  energy: string;
+};
+type LightKey = keyof Light; // "light" | "energy"
+
+interface Person {
+    name: string;
+    age: number;
+}
+type K1 = keyof Person; // "name" | "age"
+type K2 = keyof Person[]; // "length" | "toString" | "pop" | "push" | "concat" | "join" 
+type K3 = keyof { [x: string]: Person };  // string | number
+```
+
+### typeof
+
+typeof k: 返回变量 k 的类型
+
+```typescript
+let computer: string[] = ["a"];
+type MyComputerType = typeof computer; //  string[]
+```
+
+### in
+
+in 用来遍历枚举类型：
+
+``` typescript
+type Keys = "a" | "b" | "c"
+
+type Obj =  {
+  [p in Keys]: any
+} // -> { a: any, b: any, c: any }
+```
+
+### Infer
+
+infer T； 将在类型 T 的处理过程中的某个部分抽离出来当做类型变量
+
+```typescript
+type Unpacked<T> =
+  T extends (infer U)[] ? U :
+  T extends (...args: any[]) => infer U ? U :
+  T extends Promise<infer U> ? U :
+  T;
+
+type Foo = Unpacked<string>;  // string
+type Bar = Unpacked<string[]>;  // string
+type Baz = Unpacked<() => string>;  // string
+type Qux = Unpacked<Promise<string>>;  // string
+type Quux = Unpacked<Promise<string>[]>;  // Promise<string>
+type Garply = Unpacked<Unpacked<Promise<string>[]>>;  // string
+```
+
+### extends
+有时候我们定义的泛型不想过于灵活或者说想继承某些类等，可以通过 extends 关键字添加泛型约束。
+
+```typescript
+interface ILengthwise {
+  length: number;
 }
 
-type TodoPreview = Pick<Todo, 'title' | 'completed'>;
+function loggingIdentity<T extends ILengthwise>(arg: T): T {
+  console.log(arg.length);
+  return arg;
+}
+```
 
-const todo: TodoPreview = {
-    title: 'Clean room',
-    completed: false,
+现在这个泛型函数被定义了约束，因此它不再是适用于任意类型：
+
+```typescript
+loggingIdentity(3);  // Error, number doesn't have a .length property
+```
+
+这时我们需要传入符合约束类型的值，必须包含必须的属性：
+
+```typescript
+loggingIdentity({length: 10, value: 3});
+```
+
+## 三、工具类型
+
+### Partial
+
+Partial<T>: 可以将传入类型 T 的所有属性变为可选属性。
+
+```typescript
+// type Partial<T> = { [P in keyof T]?: T[P] | undefined; }
+
+type Foo = {
+  name: string;
+  age: number;
+};
+const partFoo: Partial<Foo> = {};
+```
+
+### Required
+
+Required<T>: Required 与 Partial 刚好相反，功能是将传入类型 T 的所有可选项转换为必选项。
+
+```typescript
+// type Required<T> = { [P in keyof T]-?: T[P]; }
+
+type Foo = {
+  name?: string;
+  age?: number;
+};
+const requiredFoo: Required<Foo> = {
+  name: 'ading',
+  age: 18,
 };
 ```
 
-## `Exclude`
+### Readonly
 
-从类型`T`中剔除所有可以赋值给`U`的属性，然后构造一个类型。
+Readonly<T>: Readonly 可以将构造类型 T 的所有属性转换为只读属性。
 
-### 例子
+```typescript
+// type Readonly<T> = { readonly [P in keyof T]: T[P]; }
 
-```ts
-type T0 = Exclude<"a" | "b" | "c", "a">;  // "b" | "c"
-type T1 = Exclude<"a" | "b" | "c", "a" | "b">;  // "c"
-type T2 = Exclude<string | number | (() => void), Function>;  // string | number
-```
-
-## `Extract`
-
-从类型`T`中提取所有可以赋值给`U`的类型，然后构造一个类型。
-
-### 例子
-
-```ts
-type T0 = Extract<"a" | "b" | "c", "a" | "f">;  // "a"
-type T1 = Extract<string | number | (() => void), Function>;  // () => void
-```
-
-## `NonNullable`
-
-从类型`T`中剔除`null`和`undefined`，然后构造一个类型。
-
-### 例子
-
-```ts
-type T0 = NonNullable<string | number | undefined>;  // string | number
-type T1 = NonNullable<string[] | null | undefined>;  // string[]
-```
-
-## `ReturnType`
-
-由函数类型`T`的返回值类型构造一个类型。
-
-### 例子
-
-```ts
-type T0 = ReturnType<() => string>;  // string
-type T1 = ReturnType<(s: string) => void>;  // void
-type T2 = ReturnType<(<T>() => T)>;  // {}
-type T3 = ReturnType<(<T extends U, U extends number[]>() => T)>;  // number[]
-type T4 = ReturnType<typeof f1>;  // { a: number, b: string }
-type T5 = ReturnType<any>;  // any
-type T6 = ReturnType<never>;  // any
-type T7 = ReturnType<string>;  // Error
-type T8 = ReturnType<Function>;  // Error
-```
-
-## `InstanceType`
-
-由构造函数类型`T`的实例类型构造一个类型。
-
-### 例子
-
-```ts
-class C {
-    x = 0;
-    y = 0;
+type Foo = {foo: string};
+const foo1: Foo = {foo: 'foo'};
+foo1.foo = 'bar';
+type ReadonlyFoo = Readonly<Foo>;
+const readonlyFoo: ReadonlyFoo = {
+  foo: 'foo',
 }
-
-type T0 = InstanceType<typeof C>;  // C
-type T1 = InstanceType<any>;  // any
-type T2 = InstanceType<never>;  // any
-type T3 = InstanceType<string>;  // Error
-type T4 = InstanceType<Function>;  // Error
+// readonlyFoo.foo = 'bar'  //Error 
 ```
 
-## `Required`
+### Record
 
-构造一个类型，使类型`T`的所有属性为`required`。
+Record<K, T>: 类型复制，将构造类型 T 设置到属性 K 上。
 
-### 例子
+```typescript
+// type Record<K extends string | number | symbol, T> = { [P in K]: T; }
 
-```ts
-interface Props {
-    a?: number;
-    b?: string;
+type Foo = {foo: string};
+type Bar = {
+  name: string;
+  age: number;
 };
-
-const obj: Props = { a: 5 }; // OK
-
-const obj2: Required<Props> = { a: 5 }; // Error: property 'b' missing
+type Baz = Record<keyof Bar, Foo>;
+const baz: Baz = {
+  name: { foo: 'foo' },
+  age: { foo: 'foo' },
+};
 ```
 
-## `ThisType`
+### Pick
 
-这个工具不会返回一个转换后的类型。它做为上下文的`this`类型的一个标记。注意，若想使用此类型，必须启用`--noImplicitThis`。
+PicK<T, K extends keyof T>: 挑选属性，将属性 T 中的其中一部分属性挑选出来
 
-### 例子
+```typescript
+// type Pick<T, K extends keyof T> = { [P in K]: T[P]; }
 
-```ts
-// Compile with --noImplicitThis
-
-type ObjectDescriptor<D, M> = {
-    data?: D;
-    methods?: M & ThisType<D & M>;  // Type of 'this' in methods is D & M
-}
-
-function makeObject<D, M>(desc: ObjectDescriptor<D, M>): D & M {
-    let data: object = desc.data || {};
-    let methods: object = desc.methods || {};
-    return { ...data, ...methods } as D & M;
-}
-
-let obj = makeObject({
-    data: { x: 0, y: 0 },
-    methods: {
-        moveBy(dx: number, dy: number) {
-            this.x += dx;  // Strongly typed this
-            this.y += dy;  // Strongly typed this
-        }
-    }
-});
-
-obj.x = 10;
-obj.y = 20;
-obj.moveBy(5, 5);
+type Transportation = {
+  name: string;
+  speed: number;
+  price: number;
+  transportAble?: boolean;
+};
+type Transportable = Pick<Transportation, 'name' | 'speed'>;
+const transportAble: Transportable = {
+  name: '小火车',
+  speed: 2,
+};
 ```
 
-上面例子中，`makeObject`参数里的`methods`对象具有一个上下文类型`ThisType`，因此`methods`对象的方法里`this`的类型为`{ x: number, y: number } & { moveBy(dx: number, dy: number): number }`。
+### Omit
 
-在`lib.d.ts`里，`ThisType`标识接口是个简单的空接口声明。除了在被识别为对象字面量的上下文类型之外，这个接口与一般的空接口没有什么不同。
+Omit<T, K>: Omit 与 Pick刚好相反，它是剔除选定属性，使用剩余类型构造新类型。
+
+```typescript
+// type Omit<T, K extends string | number | symbol> = { [P in Exclude<keyof T, K>]: T[P]; }
+
+type Transportation = {
+  name: string;
+  speed: number;
+  price: number;
+  transportAble?: boolean;
+};
+type MyOmit = Omit<Transportation, 'name' | 'speed'>;
+const myomit: MyOmit = {
+  price: 20,
+}
+```
+
+### Exclude
+
+Exclude<T, K>: 去除 T 类型中于K类型包含的相同属性，使用剩余属性构造一个新类型
+
+```typescript
+// type Exclude<T, U> = T extends U ? never : T
+
+type Foo = Exclude<"a" | "b" | "c", "a">;  // "b" | "c"
+type Bar = Exclude<"a" | "b" | "c", "a" | "b">;  // "c"
+type Baz = Exclude<string | number | (() => void), Function>;
+// string | number
+type TExcludeTrain = Exclude<Foo, Baz>; // naver
+```
+
+### Extract
+
+Extract<T, K>: 获取构造类型 T, K 中相同的类型构造一个新的类型
+
+```typescript
+// type Extract<T, U> = T extends U ? T : never
+
+type Foo = Extract<"a" | "b" | "c", "a" | "f">;  // "a"
+type Bar = Extract<string | number | (() => void), Function>;  
+// () => void
+```
+
+### NonNullable
+
+NonNullable<T>:  去除类型 T 中的 null 与 undefined
+
+```typescript
+// type NonNullable<T> = T extends null | undefined ? never : T
+
+type NoNonNullType = NonNullable<string | null | number>;
+let noNonNullType: NoNonNullType = 10;
+```
+
+### ReturnType
+
+构造一个由函数类型返回值类型 T 的类型
+
+```typescript
+// type ReturnType<T extends (...args: any) => any> = T extends (...args: any) => infer R ? R : any
+
+type FunReturnBoolean = () => boolean ; 
+type ReturnTypeBoolean = ReturnType<FunReturnBoolean>;
+type ReturnNumArr = ReturnType<<T extends U, U extends number[]>() => T>;
+const numbers: ReturnNumArr = [1, 2];
+```
+
+### InstanceType
+
+由构造函数类型 T 的实例类型构造一个类型
+
+```typescript
+class Human {
+  name= '人类';
+  age= 800;
+};
+type HumanType = InstanceType<typeof Human>;
+let newHuman: HumanType;
+let newHuman2: HumanType = new Human();
+```
+
+## 四、官方文档：
+
+https://www.tslang.cn/docs/release-notes/typescript-3.1.html

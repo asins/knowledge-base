@@ -22,8 +22,6 @@ export function numberSplit(num: string | number, separator: string = ',') {
 }
 ```
 
-
-
 ### 超int型的最大值相加
 
 ```js
@@ -204,5 +202,15 @@ for (var i = 1; i <= len; i++) {
 // 5等份： [69, 69, 69, 69, 69] 345
 // 6等份： [58, 58, 58, 57, 57, 57] 345
 // 7等份： [50, 50, 49, 49, 49, 49, 49] 345
+```
+
+
+
+## 类型检测
+
+```javascript
+function isNumeric(obj) {
+  return !isNaN(parseFloat(obj)) && isFinite(obj);
+}
 ```
 

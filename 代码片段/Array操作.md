@@ -31,3 +31,78 @@ function arraySplit(list, limitLen) {
 // out: [[2, 3, 4], [5, 6, 7], [8]]
 arraySplit([2, 3, 4, 5, 6, 7, 8], 3);
 ```
+
+### 类Array对象转为Array
+```js
+/**
+ * convert array-like objects to real arrays
+ * @param {Object} obj
+ * @returns {Array}
+ */
+export function toArray(obj) {
+  return Array.prototype.slice.call(obj, 0);
+}
+```
+
+### 按key对数组中的对象做过虑，sort存在则同时按key排序
+
+```typescript
+/**
+ * unique array with objects based on a key (like 'id') or just by the array's value
+ * @param {Array} src [{id:1,n:'a'},{id:2},{id:1,n:'b'}]
+ * @param {String} [key]
+ * @param {Boolean} [sort=False]
+ * @returns {Array} [{id:1,n:'a'},{id:2}]
+ */
+export function uniqueArray(src, key, sort?: boolean) {
+  let results = [];
+  const values = [];
+  let i = 0;
+
+  while (i < src.length) {
+    const val = key ? src[i][key] : src[i];
+    if (inArray(values, val) < 0) {
+      results.push(src[i]);
+    }
+    values[i] = val;
+    i++;
+  }
+
+  if (sort) {
+    if (!key) {
+      results = results.sort();
+    } else {
+      results = results.sort((a, b) => {
+        return a[key] - b[key];
+      });
+    }
+  }
+
+  return results;
+}
+```
+
+### 在一个数组中查找一个对象
+```typescript
+/**
+ * find if a array contains the object using indexOf or a simple polyFill
+ * @param {Array} src
+ * @param {String} find
+ * @param {String} [findByKey]
+ * @return {Boolean|Number} false when not found, or the index
+ */
+export function inArray(src, find, findByKey?) {
+    if (src.indexOf && !findByKey) {
+    return src.indexOf(find);
+    } else {
+    let i = 0;
+    while (i < src.length) {
+      if ((findByKey && src[i][findByKey] === find) || (!findByKey && src[i] === find)) {
+        return i;
+      }
+      i++;
+    }
+    return -1;
+    }
+}
+```

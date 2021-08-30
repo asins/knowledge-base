@@ -1,9 +1,3 @@
----
-title: "MackBack Pro 配置 2019"
-date: "2020-04-07 20:51:21"
-lastmod: "2020-04-20"
----
-
 ## 系统配置
 
 ### 网络
@@ -220,7 +214,7 @@ sudo bash -c "echo '/usr/local/bin/fish' >> /etc/shells"
 # chsh -s /usr/local/bin/fish
 
 # 安装 fish 包管理器
-curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisherman
+curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
 
 # 快速跳转到其它目录
 fisher install z

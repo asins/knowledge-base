@@ -33,3 +33,61 @@ function getLocalXXX() {
 }
 ```
 
+
+
+### Promise Above
+
+````js
+var abortController = null;
+
+
+// if ( abortController ) {
+//   abortController.abort();
+
+//   abortController = null;
+//   target.innerText = 'Calculate';
+
+//   return;
+// }
+
+abortController = new AbortController();
+
+calculate(abortController.signal)
+  .then((result) => {
+  console.log('then', result );
+})
+  .then(() => {
+  console.log('then2');
+})
+  .catch((e) => {
+  console.log(e, ' catch  WHY DID YOU DO THAT?!!');
+  throw e;
+})
+  .then(() => {
+  console.log('then3');
+})
+  .finally(() => {
+  abortController = null;
+  console.log('finally');
+});
+
+
+function calculate( abortSignal ) {
+  return new Promise( ( resolve, reject ) => {
+    const error = new Error( 'Calculation aborted by user', 'AbortError' );
+
+    if ( abortSignal.aborted ) {
+      return reject( error );
+    }
+
+    const timeout = setTimeout( ()=> {
+      resolve( 1 );
+    }, 5000 );
+
+    abortSignal.addEventListener( 'abort', () => {
+      clearTimeout( timeout );
+      reject( error );
+    } );
+  });
+}
+````

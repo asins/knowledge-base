@@ -36,8 +36,6 @@ function colorReverse(oldColor){
 
 
 
-
-
 ## 千万级别不重复随机数生成
 
 ### Mrg32k3a方式

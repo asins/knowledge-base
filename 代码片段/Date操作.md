@@ -133,65 +133,46 @@ function formatDate(date: Date | null, fmt = 'yyyy-MM-dd', opt: Formatters = {})
 
 
 
+## 过去时间友好提示
 
-
-```js
-type Formatter = (date: Date) => string;
-
-type Formatters = { [ token: string ]: Formatter; };
-
+```typescript
 /**
- * Formatters are based on moment tokens. They receives a
- * Date and returns it's format.
+ * 提示距离当天零点过去了多少时间
+ * @param {Number|Date} start 开始时间
+ * @param {Number|Date} end 结束时间
+ * @param {String} format 大于25天后显示的样式
  */
-const formatters: Formatters = {
-  'DD':   (date) => zero(date.getDate(), 2),
-  'D':    (date) => date.getDate() + '',
-  'MM':   (date) => zero(date.getMonth() + 1, 2),
-  'M':    (date) => (date.getMonth() + 1) + '',
-  'YYYY': (date) => zero(date.getFullYear(), 4),
-  'YY':   (date) => (date.getFullYear() + '').substr(-2, 2),
-  'HH':   (date) => zero(date.getHours(), 2),
-  'H':    (date) => date.getHours() + '',
-  'mm':   (date) => zero(date.getMinutes(), 2),
-  'm':    (date) => date.getMinutes() + '',
-  'ss':   (date) => zero(date.getSeconds(), 2),
-  's':    (date) => date.getSeconds() + '',
-};
+const oneDaySer = 24 * 60 * 60; // 一天的秒数
+export function release(start, end?, format = 'YYYY年MM月DD日') {
+  if (isNumeric(start)) {
+    start = new Date(parseInt(start, 10));
+  }
+  if (isNumeric(end)) {
+    end = new Date(parseInt(end, 10));
+  }
+  if (start === undefined) { start = new Date(); }
+  if (end === undefined) { end = new Date(); }
 
-/**
- * Add '0' pads to number value.
- */
-function zero (value: number, length: number): string {
-  let string = value + '';
-  while (string.length < length)
-    string = '0' + string;
-  return string;
-}
-
-/**
- * Creates a matcher using formatters tokens and escape strategy.
- */
-function createMatcher (): RegExp {
-  const ESCAPE = '\\[[^\\[\\]]*\\]';
-  const matchers = Object.keys(formatters).concat(ESCAPE);
-  return new RegExp(matchers.join('|'), 'g');
-}
-
-/**
- * It replaces format tokens for corresponding Date formats.
- * @example ```js
- * format(new Date(), 'DD/MM/YYYY hh:mm:ss')
- * ```
- * @param date A Date instace.
- * @param format A string with tokens based on moment.
- */
-function format (date: Date, format: string) {
-  return format.replace(matcher, (token: string) => {
-    if (formatters.hasOwnProperty(token))
-      return formatters[token](date);
-    return token.replace(/\[|\]/g, '');
-  });
+  const endZero = new Date(end);
+  endZero.setHours(0, 0, 0, 0); // 凌晨时间
+  const diff = (+end - +start) / 1000;
+  const diffZero = (+end - +endZero) / 1000;
+  if (diff <= 60) {
+    return '刚刚';
+  } else if (diff <= 60 * 60) {
+    return `${Math.floor(diff / 60)}分钟前`;
+  } else if (diff <= diffZero) {
+    return `${Math.floor(diff / 3600)}小时前`;
+  } else if (diff <= diffZero + oneDaySer) {
+    return '昨天';
+  } else if (diff <= diffZero + oneDaySer * 2) {
+    return '前天';
+  } else if (diff <= diffZero + oneDaySer * 25) {
+    return `${Math.floor(diff / oneDaySer)}天前`;
+  }
+  return formatDate(format, start);
 }
 ```
+
+
 

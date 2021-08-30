@@ -8,7 +8,7 @@ lastmod: "2019-08-21"
 
 ```css
 div{
-	white-space:nowrap;
+  white-space:nowrap;
 }
 
 ```
