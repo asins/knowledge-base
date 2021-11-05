@@ -303,19 +303,24 @@ git commit --amend --author="asins <name@mail.com>"
 如果记录比较多就得使用下面的方式了：
 
 ```sh
-git filter-branch --force --env-filter '
-  #如果 Git 用户名等于老的 Git 用户名 wangshuyin
-  if [ "$GIT_COMMITTER_NAME" = "<Old Name>" || "$GIT_AUTHOR_EMAIL" = "<Old Email>" ];
+git filter-branch --env-filter '
+  # 如果 Git 用户名等于老的 Git 邮箱 wrong@example.com
+  WRONG_EMAIL="wrong@example.com"
+  NEW_NAME="New Name Value"
+  NEW_EMAIL="correct@example.com"
+  
+  if [ "$GIT_COMMITTER_EMAIL" = "$WRONG_EMAIL" ]
   then
-    #替换提交的用户名为新的用户名，替换提交的邮箱为正确的邮箱
-    GIT_COMMITTER_NAME="<New name>";
-    GIT_COMMITTER_EMAIL="<New email>";
-
-    #替换用户名为新的用户名，替换邮箱为正确的邮箱
-    GIT_AUTHOR_NAME="<New name>";
-    GIT_AUTHOR_EMAIL="<New email>";
+      export GIT_COMMITTER_NAME="$NEW_NAME"
+      export GIT_COMMITTER_EMAIL="$NEW_EMAIL"
   fi
-' --tag-name-filter cat -- --all
+  if [ "$GIT_AUTHOR_EMAIL" = "$WRONG_EMAIL" ]
+  then
+      export GIT_AUTHOR_NAME="$NEW_NAME"
+      export GIT_AUTHOR_EMAIL="$NEW_EMAIL"
+  fi
+' --tag-name-filter cat -- --all 
+# --tag-name-filter cat -- --branches --tags
 ```
 
 

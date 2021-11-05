@@ -28,16 +28,8 @@ lastmod: "2020-05-05"
  *   });
  *   console.log(t); // 2017年9月27日 周三 (第四季)
  */
-function format(date, fmt = 'yyyy-MM-dd', opt = {}) {
-  if (typeof date === 'string') {
-    date = date.replace(/-/g, '/');
-  }
-
-  date = date === undefined ? new Date() : new Date(date);
-
-  return fmt.replace(new RegExp(/([yMdhmsSqe])\1*/, 'g'), ($0, $1) => {
-    if (!$1) $1 = $0;
-
+export function format(date, fmt = 'yyyy-MM-dd', opt = {}) {
+  return fmt.replace(/([yMdhmsSqe])\1*/g, ($0, $1) => {
     let str;
     switch ($1) {
       case 'y': str = date.getFullYear(); break; // 年份
@@ -47,9 +39,8 @@ function format(date, fmt = 'yyyy-MM-dd', opt = {}) {
       case 'm': str = date.getMinutes(); break; // 分
       case 's': str = date.getSeconds(); break; // 秒
       case 'S': str = date.getMilliseconds(); break; // 毫秒
-      case 'q': str = Math.floor((date.getMonth() + 3) / 3); break; // 季度
+      case 'q': str = Math.floor(date.getMonth() / 3); break; // 季度（0-3）
       case 'e': str = date.getDay(); break; // 星期（0-6）
-      default: str = $0;
     }
 
     const extend = opt[$1];
