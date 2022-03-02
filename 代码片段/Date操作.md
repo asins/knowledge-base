@@ -165,5 +165,62 @@ export function release(start, end?, format = 'YYYY年MM月DD日') {
 }
 ```
 
+## 常用时间计算
 
+```typescript
+/**
+ * 只显示日期不显示时间
+ */
+export function formatShortDate(date) {
+  return formatDate(date, DATE_FORMAT);
+}
+
+/**
+ * 清除时间内的时 分 秒 毫秒信息
+ * @param {Date, Number} date 要格式化的时间
+ */
+export function normalizeDate(date: Date | number): Date {
+  const tempDate = new Date(date);
+  tempDate.setHours(0, 0, 0, 0);
+  return tempDate;
+}
+
+/**
+ * 计算指定月份第一天星期几
+ * @param {number} year 年份
+ * @param {number} month  月份
+ */
+export function getFirstDayOfWeek(year: number, month: number) {
+  return new Date(Date.UTC(year, month, 1)).getDay();
+}
+
+/**
+ * 计算指定月份共多少天
+ * @param {number} year 年份
+ * @param {number} month  月份
+ */
+export function getThisMonthDays(year: number, month: number): number {
+  return new Date(year, month + 1, 0).getDate();
+}
+
+/**
+ * 两日期间隔的 年、月、日数
+ */
+export function intervalDate(startTime: Date | number, endTime: Date | number) {
+  startTime = normalizeDate(startTime);
+  endTime = normalizeDate(endTime);
+
+  const startYear = startTime.getFullYear();
+  const endYear = endTime.getFullYear();
+
+  const startMonth = startYear * 12 + startTime.getMonth();
+  const endMonth = endYear * 12 + endTime.getMonth();
+
+  return {
+    year: endYear - startYear,
+    month: endMonth - startMonth,
+    day: (endTime.getTime() - startTime.getTime()) / ONE_DAY,
+  };
+}
+```
 
