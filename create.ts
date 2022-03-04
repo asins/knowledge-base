@@ -29,19 +29,19 @@ async function formatFile(path: string, dirEntry: Deno.DirEntry) {
      * date: "2019-08-21"
      * lastmod: "2019-08-21"
      */
-    console.log('[已存在YAML信息] 开始转为TOML格式', path);
     // txt = txt.replace(/(^|\n)-{3,}\n/g, '$1+++\n');
-    const yamlStr = txt.slice(0, endIndex);
+    const yamlStr = txt.slice(0, endIndex + endStr.length);
 
-    let tempStr = /\ndate:\s+"(.*?)"\n/g.exec(yamlStr);
+    let tempStr = /\ndate:\s+"(.*?)"\n/.exec(yamlStr);
     if(tempStr) {
       creatDate = tempStr[1];
     }
 
-    tempStr = /\nlastmod:\s+"(.*?)"\n/g.exec(yamlStr);
+    tempStr = /\nlastmod:\s+"(.*?)"\n/.exec(yamlStr);
     if(tempStr) {
       modified = tempStr[1];
     }
+    console.log('[已存在YAML信息] 开始转为TOML格式', path, 'creatDate:'+ creatDate, 'modified:' +modified);
 
     txt = txt.slice(endIndex + endStr.length);
   }
