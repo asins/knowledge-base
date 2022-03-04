@@ -1,8 +1,10 @@
----
-title: "ag 搜索工具"
-date: "2019-08-21"
-lastmod: "2019-08-21"
----
++++
+title = "ag 搜索工具"
+template = "page.html"
+date = "2019-08-21"
+updated = "2019-08-21"
++++
+
 
 ## 常用参数 
 

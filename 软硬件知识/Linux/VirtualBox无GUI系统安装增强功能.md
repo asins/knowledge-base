@@ -1,3 +1,10 @@
++++
+title = "VirtualBox无GUI系统安装增强功能"
+template = "page.html"
+date = "2022-03-04"
+updated = "2022-03-04"
++++
+
 ## 无GUI服务器系统内安装VirtualBox增强功能(Guest Additions)
 
 1. Start VirtualBox.

@@ -1,8 +1,10 @@
----
-title: "用Notepad2替换系统记事本"
-date: "2019-08-21"
-lastmod: "2019-08-21"
----
++++
+title = "用Notepad2替换系统记事本"
+template = "page.html"
+date = "2019-08-21"
+updated = "2019-08-21"
++++
+
 
 
 保存以下内容到Notepad2程序目录并命名为`run.bat`，然后执行：

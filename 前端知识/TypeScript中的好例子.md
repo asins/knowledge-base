@@ -1,3 +1,10 @@
++++
+title = "TypeScript中的好例子"
+template = "page.html"
+date = "2022-03-04"
+updated = "2022-03-04"
++++
+
 ### 获取对象中的值的定义
 
 ```typescript

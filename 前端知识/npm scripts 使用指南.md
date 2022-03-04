@@ -1,8 +1,10 @@
----
-title: "npm scripts 使用指南"
-date: "2019-08-21"
-lastmod: "2019-08-21"
----
++++
+title = "npm scripts 使用指南"
+template = "page.html"
+date = "2019-08-21"
+updated = "2019-08-21"
++++
+
 
 # npm scripts 使用指南
 

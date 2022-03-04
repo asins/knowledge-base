@@ -1,8 +1,10 @@
----
-title: "Array操作"
-date: "2020-02-24"
-lastmod: "2020-04-14"
----
++++
+title = "Array操作"
+template = "page.html"
+date = "2020-02-24"
+updated = "2020-04-14"
++++
+
 
 ### 对Array分组
 

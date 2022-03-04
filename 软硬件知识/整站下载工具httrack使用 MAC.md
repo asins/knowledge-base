@@ -1,8 +1,10 @@
----
-title: "整站下载工具httrack使用 MAC"
-date: "2019-08-21"
-lastmod: "2019-08-21"
----
++++
+title = "整站下载工具httrack使用 MAC"
+template = "page.html"
+date = "2019-08-21"
+updated = "2019-08-21"
++++
+
 
 ### 1. 安装
 

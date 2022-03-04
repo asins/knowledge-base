@@ -1,8 +1,10 @@
----
-title: "sort 排序命令"
-date: "2019-08-21"
-lastmod: "2019-08-21"
----
++++
+title = "sort 排序命令"
+template = "page.html"
+date = "2019-08-21"
+updated = "2019-08-21"
++++
+
 
 ## sort的工作原理
 

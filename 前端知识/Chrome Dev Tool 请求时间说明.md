@@ -1,8 +1,10 @@
----
-title: "Chrome Dev Tool 请求时间说明"
-date: "2019-11-13"
-lastmod: "2019-11-13"
----
++++
+title = "Chrome Dev Tool 请求时间说明"
+template = "page.html"
+date = "2019-11-13"
+updated = "2019-11-13"
++++
+
 
 ## Chrome Dev Tool 中时间线各阶段代表的意义
 

@@ -1,3 +1,10 @@
++++
+title = "hooks"
+template = "page.html"
+date = "2022-03-04"
+updated = "2022-03-04"
++++
+
 数据请求的hook封闭，来源：https://www.robinwieruch.de/react-hooks-fetch-data
 ```javascript
 const dataFetchReducer = (state, action) => {

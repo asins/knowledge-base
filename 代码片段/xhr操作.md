@@ -1,8 +1,10 @@
----
-title: "xhr操作"
-date: "2019-08-21"
-lastmod: "2019-08-21"
----
++++
+title = "xhr操作"
+template = "page.html"
+date = "2019-08-21"
+updated = "2019-08-21"
++++
+
 
 ## Headers操作
 

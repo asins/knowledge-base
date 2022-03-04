@@ -1,8 +1,10 @@
----
-title: "mysql操作"
-date: "2019-10-17"
-lastmod: "2020-05-05"
----
++++
+title = "mysql操作"
+template = "page.html"
+date = "2019-10-17"
+updated = "2020-05-05"
++++
+
 
 ```sh
 # 登录 mysql

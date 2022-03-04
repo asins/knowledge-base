@@ -1,8 +1,10 @@
----
-title: "Template 模板引擎"
-date: "2019-08-21"
-lastmod: "2019-08-21"
----
++++
+title = "Template模板引擎"
+template = "page.html"
+date = "2019-08-21"
+updated = "2019-08-21"
++++
+
 
 ## 一、简单的模板
 

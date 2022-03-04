@@ -1,8 +1,10 @@
----
-title: "翻墙代理gost安装"
-date: "2019-08-21"
-lastmod: "2019-08-21"
----
++++
+title = "翻墙代理gost安装"
+template = "page.html"
+date = "2019-08-21"
+updated = "2019-08-21"
++++
+
 
 ## 安装
 

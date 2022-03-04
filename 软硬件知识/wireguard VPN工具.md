@@ -1,8 +1,10 @@
----
-title: "wireguard VPN工具"
-date: "2019-08-21"
-lastmod: "2020-05-05"
----
++++
+title = "wireguard VPN工具"
+template = "page.html"
+date = "2019-08-21"
+updated = "2020-05-05"
++++
+
 
 ## Centos 中安装
 

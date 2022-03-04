@@ -1,8 +1,10 @@
----
-title: "awk 指定规则显示内容"
-date: "2019-08-21"
-lastmod: "2019-08-21"
----
++++
+title = "awk 指定规则显示内容"
+template = "page.html"
+date = "2019-08-21"
+updated = "2019-08-21"
++++
+
 
 ## awk 简介
 

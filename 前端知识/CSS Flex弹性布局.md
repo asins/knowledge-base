@@ -1,8 +1,10 @@
----
-title: "CSS Flex弹性布局"
-date: "2019-08-21"
-lastmod: "2019-08-21"
----
++++
+title = "CSS Flex弹性布局"
+template = "page.html"
+date = "2019-08-21"
+updated = "2019-08-21"
++++
+
 
 ## 一、Flex 布局是什么？
 

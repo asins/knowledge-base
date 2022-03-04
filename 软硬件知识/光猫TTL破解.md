@@ -1,8 +1,10 @@
----
-title: "光猫TTL破解"
-date: "2019-08-21"
-lastmod: "2020-05-05"
----
++++
+title = "光猫TTL破解"
+template = "page.html"
+date = "2019-08-21"
+updated = "2020-05-05"
++++
+
 
 实用 TTL 破解还是挺简单的
 

@@ -1,8 +1,10 @@
----
-title: "bitwardenrs密码管理"
-date: "2020-04-07"
-lastmod: "2020-05-05"
----
++++
+title = "bitwardenrs密码管理"
+template = "page.html"
+date = "2020-04-07"
+updated = "2020-05-05"
++++
+
 
 
 ```sh

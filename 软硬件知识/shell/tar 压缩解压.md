@@ -1,8 +1,10 @@
----
-title: "tar 压缩解压"
-date: "2019-08-21"
-lastmod: "2019-08-21"
----
++++
+title = "tar 压缩解压"
+template = "page.html"
+date = "2019-08-21"
+updated = "2019-08-21"
++++
+
 
 ## .tar 
 - 解包：`tar xvf FileName.tar`

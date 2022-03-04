@@ -1,8 +1,10 @@
----
-title: "Centos中安装v2ray"
-date: "2020-04-18"
-lastmod: "2020-04-20"
----
++++
+title = "Centos中安装v2ray"
+template = "page.html"
+date = "2020-04-18"
+updated = "2020-04-20"
++++
+
 
 ## 系统配置
 

@@ -1,8 +1,10 @@
----
-title: "trojan使用"
-date: "2020-03-15"
-lastmod: "2020-03-15"
----
++++
+title = "trojan使用"
+template = "page.html"
+date = "2020-03-15"
+updated = "2020-03-15"
++++
+
 
 记录一下在Centos8中安装trojan的过程，方便以后查询。
 

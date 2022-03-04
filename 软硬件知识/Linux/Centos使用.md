@@ -1,8 +1,10 @@
----
-title: "Centos使用"
-date: "2019-10-02"
-lastmod: "2020-03-09"
----
++++
+title = "Centos使用"
+template = "page.html"
+date = "2019-10-02"
+updated = "2020-03-09"
++++
+
 
 ```bash 
 # 为用户添加到sudo用户组内

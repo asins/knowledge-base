@@ -1,8 +1,10 @@
----
-title: "CSS实例强制换行"
-date: "2019-08-21"
-lastmod: "2019-08-21"
----
++++
+title = "CSS实例强制换行"
+template = "page.html"
+date = "2019-08-21"
+updated = "2019-08-21"
++++
+
 
 ## 强制不换行
 

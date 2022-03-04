@@ -1,8 +1,10 @@
----
-title: "Mac系统自带截屏快捷键"
-date: "2019-08-21"
-lastmod: "2020-05-05"
----
++++
+title = "Mac系统自带截屏快捷键"
+template = "page.html"
+date = "2019-08-21"
+updated = "2020-05-05"
++++
+
 
 在 Mac 上截图其实很简单，但很多人只知道 Command-Shift-3 和 Command-Shift-4，却不知道 Mac 的截图快捷键其实还有很多增强，具体如下：
 

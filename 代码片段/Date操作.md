@@ -1,8 +1,10 @@
----
-title: "Date操作"
-date: "2019-08-21"
-lastmod: "2020-05-05"
----
++++
+title = "Date操作"
+template = "page.html"
+date = "2019-08-21"
+updated = "2020-05-05"
++++
+
 
 # JS Date操作
 

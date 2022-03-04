@@ -1,8 +1,10 @@
----
-title: "如何为Nginx创建自签名SSL  TLS证书"
-date: "2020-04-21"
-lastmod: "2020-04-21"
----
++++
+title = "如何为Nginx创建自签名SSL  TLS证书"
+template = "page.html"
+date = "2020-04-21"
+updated = "2020-04-21"
++++
+
 
 来源：https://www.humankode.com/ssl/create-a-selfsigned-certificate-for-nginx-in-5-minutes
 

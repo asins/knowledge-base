@@ -1,8 +1,10 @@
----
-title: "获取当前脚本Url"
-date: "2019-08-21"
-lastmod: "2019-08-21"
----
++++
+title = "获取当前脚本Url"
+template = "page.html"
+date = "2019-08-21"
+updated = "2019-08-21"
++++
+
 
 获取当前执行JS文件的Path，
 

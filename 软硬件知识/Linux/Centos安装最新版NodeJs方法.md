@@ -1,8 +1,10 @@
----
-title: "Centos安装最新版NodeJs方法"
-lastmod: "2017-03-05"
-date: "2013-11-18"
----
++++
+title = "Centos安装最新版NodeJs方法"
+template = "page.html"
+date = "2013-11-18"
+updated = "2017-03-05"
++++
+
 
 在Centos系统中NodeJs官方源内的版本还是`0.x.x`版本，所以要安装最新版需要自己想办法了。
 

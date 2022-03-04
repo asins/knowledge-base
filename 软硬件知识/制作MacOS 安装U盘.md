@@ -1,8 +1,10 @@
----
-title: "制作MacOS 安装U盘"
-date: "2019-08-21"
-lastmod: "2019-08-21"
----
++++
+title = "制作MacOS 安装U盘"
+template = "page.html"
+date = "2019-08-21"
+updated = "2019-08-21"
++++
+
 
 新的MAC OS High Sierra 正式版推出了，如何通过优盘全新安装High Sierra，以下是教程。
 

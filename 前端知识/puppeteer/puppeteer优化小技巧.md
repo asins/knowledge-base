@@ -1,8 +1,10 @@
----
-title: "puppeteer优化小技巧"
-date: "2019-12-19"
-lastmod: "2019-12-19"
----
++++
+title = "puppeteer优化小技巧"
+template = "page.html"
+date = "2019-12-19"
+updated = "2019-12-19"
++++
+
 
 > Puppeteer是一个Node库，它提供了高级API来通过DevTools协议控制Chromium或Chrome。
 

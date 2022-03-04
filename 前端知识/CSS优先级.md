@@ -1,8 +1,10 @@
----
-title: "CSS优先级"
-date: "2019-08-21"
-lastmod: "2019-08-21"
----
++++
+title = "CSS优先级"
+template = "page.html"
+date = "2019-08-21"
+updated = "2019-08-21"
++++
+
 
 # CSS优先级
 

@@ -1,3 +1,10 @@
++++
+title = "String操作"
+template = "page.html"
+date = "2022-03-04"
+updated = "2022-03-04"
++++
+
 ### 随机生成一串字符
 
 ```js

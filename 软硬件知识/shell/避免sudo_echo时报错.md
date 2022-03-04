@@ -1,8 +1,10 @@
----
-title: "避免sudo_echo时报错"
-date: "2019-08-21"
-lastmod: "2019-08-21"
----
++++
+title = "避免sudo_echo时报错"
+template = "page.html"
+date = "2019-08-21"
+updated = "2019-08-21"
++++
+
 
 ## 一、问题
 

@@ -1,8 +1,10 @@
----
-title: "HTML转换为DOM对象"
-date: "2019-08-21"
-lastmod: "2019-08-21"
----
++++
+title = "HTML转换为DOM对象"
+template = "page.html"
+date = "2019-08-21"
+updated = "2019-08-21"
++++
+
 
 # 将String转换为HTML DOM对象
 

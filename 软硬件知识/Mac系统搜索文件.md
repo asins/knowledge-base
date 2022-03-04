@@ -1,8 +1,10 @@
----
-title: "Mac系统搜索文件"
-date: "2019-08-21"
-lastmod: "2020-05-05"
----
++++
+title = "Mac系统搜索文件"
+template = "page.html"
+date = "2019-08-21"
+updated = "2020-05-05"
++++
+
 
 ## 通过 Find 命令搜索文件
 

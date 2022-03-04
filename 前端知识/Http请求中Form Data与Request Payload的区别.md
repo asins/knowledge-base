@@ -1,8 +1,10 @@
----
-title: "Http请求中Form Data与Request Payload的区别"
-date: "2019-08-21"
-lastmod: "2019-08-21"
----
++++
+title = "Http请求中Form Data与Request Payload的区别"
+template = "page.html"
+date = "2019-08-21"
+updated = "2019-08-21"
++++
+
 
 ## HTTP请求中的Form Data与Request Payload的区别date: 2017-08-10
 

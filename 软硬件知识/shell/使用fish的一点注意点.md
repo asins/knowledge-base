@@ -1,8 +1,10 @@
----
-title: "使用fish的一点注意点"
-date: "2019-08-21"
-lastmod: "2019-08-21"
----
++++
+title = "使用fish的一点注意点"
+template = "page.html"
+date = "2019-08-21"
+updated = "2019-08-21"
++++
+
 
 [fish](http://fishshell.com/) 是一个对用户友好的 shell（相对其它 shell 而言），它提供内置的命令补全提示、基于浏览器的帮助和设置界面、更易于编写的脚本代码等等实用功能。
 

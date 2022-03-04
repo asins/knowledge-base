@@ -1,8 +1,10 @@
----
-title: "lsyncd 在mac下自动同步文件到服务器"
-date: "2019-08-21"
-lastmod: "2020-05-05"
----
++++
+title = "lsyncd 在mac下自动同步文件到服务器"
+template = "page.html"
+date = "2019-08-21"
+updated = "2020-05-05"
++++
+
 
 ## 一、lsyncd 介绍
 

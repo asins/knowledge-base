@@ -1,8 +1,10 @@
----
-title: "JS动画算法"
-date: "2019-08-21"
-lastmod: "2019-08-21"
----
++++
+title = "JS动画算法"
+template = "page.html"
+date = "2019-08-21"
+updated = "2019-08-21"
++++
+
 
 ## 缓动小算法
 

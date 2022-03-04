@@ -1,8 +1,10 @@
----
-title: "H5页面viewport单位自适应"
-date: "2019-08-21"
-lastmod: "2020-04-03"
----
++++
+title = "H5页面viewport单位自适应"
+template = "page.html"
+date = "2019-08-21"
+updated = "2020-04-03"
++++
+
 
 本文复制于：https://github.com/RaySnow/vw-polyfill/blob/master/other.md
 

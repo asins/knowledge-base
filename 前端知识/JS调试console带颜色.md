@@ -1,8 +1,10 @@
----
-title: "JS调试console带颜色"
-date: "2019-08-21"
-lastmod: "2019-08-21"
----
++++
+title = "JS调试console带颜色"
+template = "page.html"
+date = "2019-08-21"
+updated = "2019-08-21"
++++
+
 
 ## 一、NodeJs终端
 

@@ -1,8 +1,10 @@
----
-title: "Vue高阶组件-hoc"
-date: "2019-11-20"
-lastmod: "2019-12-14"
----
++++
+title = "Vue高阶组件-hoc"
+template = "page.html"
+date = "2019-11-20"
+updated = "2019-12-14"
++++
+
 
 ```js
 // hoc.js

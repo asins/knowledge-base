@@ -1,8 +1,10 @@
----
-title: "Number操作"
-date: "2019-08-21"
-lastmod: "2020-02-24"
----
++++
+title = "Number操作"
+template = "page.html"
+date = "2019-08-21"
+updated = "2020-02-24"
++++
+
 
 
 

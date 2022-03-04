@@ -1,3 +1,10 @@
++++
+title = "StarUML3.X的破解方法"
+template = "page.html"
+date = "2022-03-04"
+updated = "2022-03-04"
++++
+
 来源：https://blog.csdn.net/Dreamligang/article/details/80981906
 
 ## 安装 asar工具包

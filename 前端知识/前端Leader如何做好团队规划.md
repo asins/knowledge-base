@@ -1,8 +1,10 @@
----
-title: "前端Leader如何做好团队规划"
-date: "2019-08-21"
-lastmod: "2019-08-21"
----
++++
+title = "前端Leader如何做好团队规划"
+template = "page.html"
+date = "2019-08-21"
+updated = "2019-08-21"
++++
+
 
 "行成于思，毁于随"——韩愈
 

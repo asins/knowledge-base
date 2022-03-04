@@ -1,8 +1,10 @@
----
-title: "终端console调试"
-date: "2019-08-21"
-lastmod: "2019-08-21"
----
++++
+title = "终端console调试"
+template = "page.html"
+date = "2019-08-21"
+updated = "2019-08-21"
++++
+
 
 ## 一、简单实现
 

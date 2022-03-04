@@ -1,8 +1,10 @@
----
-title: "利用七牛 qshell 和 Automator 打造快捷上传服务"
-date: "2019-08-21"
-lastmod: "2020-05-05"
----
++++
+title = "利用七牛 qshell 和 Automator 打造快捷上传服务"
+template = "page.html"
+date = "2019-08-21"
+updated = "2020-05-05"
++++
+
 
 ### 来源
 

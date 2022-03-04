@@ -1,8 +1,10 @@
----
-title: "如何解决 Resilio Sync 无法正常同步的问题"
-date: "2019-08-21"
-lastmod: "2019-08-21"
----
++++
+title = "如何解决 Resilio Sync 无法正常同步的问题"
+template = "page.html"
+date = "2019-08-21"
+updated = "2019-08-21"
++++
+
 
 # 如何解决 Resilio Sync 无法正常同步的问题
 

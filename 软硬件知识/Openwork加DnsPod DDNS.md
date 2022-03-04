@@ -1,8 +1,10 @@
----
-title: "Openwork加DnsPod DDNS"
-date: "2019-08-21"
-lastmod: "2020-05-05"
----
++++
+title = "Openwork加DnsPod DDNS"
+template = "page.html"
+date = "2019-08-21"
+updated = "2020-05-05"
++++
+
 
 # Openwork 加 DnsPod DDNS
 

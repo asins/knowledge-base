@@ -1,3 +1,10 @@
++++
+title = "Object操作"
+template = "page.html"
+date = "2022-03-04"
+updated = "2022-03-04"
++++
+
 ### 空对象检测
 
 来源：https://www.samanthaming.com/tidbits/94-how-to-check-if-object-is-empty/

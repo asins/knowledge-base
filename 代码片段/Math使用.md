@@ -1,8 +1,10 @@
----
-title: "Math使用"
-date: "2019-08-21"
-lastmod: "2019-08-21"
----
++++
+title = "Math使用"
+template = "page.html"
+date = "2019-08-21"
+updated = "2019-08-21"
++++
+
 
 
 

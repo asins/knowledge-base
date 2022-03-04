@@ -1,8 +1,10 @@
----
-title: "配置ali_ddns"
-date: "2019-09-29"
-lastmod: "2019-09-29"
----
++++
+title = "配置ali_ddns"
+template = "page.html"
+date = "2019-09-29"
+updated = "2019-09-29"
++++
+
 
 步骤：
 

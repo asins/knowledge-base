@@ -1,8 +1,10 @@
----
-title: "curl基于cookie自动登录签到"
-date: "2019-08-21"
-lastmod: "2020-05-05"
----
++++
+title = "curl基于cookie自动登录签到"
+template = "page.html"
+date = "2019-08-21"
+updated = "2020-05-05"
++++
+
 
 在 iamtxt.com 网站上下载电子书需要积分，只好做每日签到这种事。在服务器上写了个 qiandao_iamtxt.com.sh 文件：
 

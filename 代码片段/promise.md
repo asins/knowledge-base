@@ -1,8 +1,10 @@
----
-title: "promise"
-date: "2019-08-21"
-lastmod: "2019-08-21"
----
++++
+title = "promise"
+template = "page.html"
+date = "2019-08-21"
+updated = "2019-08-21"
++++
+
 
 ## 新建Promise实例
 

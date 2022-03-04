@@ -1,8 +1,10 @@
----
-title: "VSCode 调试中 launch.json 配置不完全指南"
-date: "2019-08-21"
-lastmod: "2019-08-21"
----
++++
+title = "VSCode 调试中 launch.json 配置不完全指南"
+template = "page.html"
+date = "2019-08-21"
+updated = "2019-08-21"
++++
+
 
 # VSCode 调试中 launch.json 配置不完全指南
 

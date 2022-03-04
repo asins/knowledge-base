@@ -1,3 +1,10 @@
++++
+title = "uuid"
+template = "page.html"
+date = "2022-03-04"
+updated = "2022-03-04"
++++
+
 ### 生成一串统一的标识的字符串
 ```js
 function createUuid(len) {

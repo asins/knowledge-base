@@ -1,8 +1,10 @@
----
-title: "debian中安装shadowsocks"
-date: "2019-12-28"
-lastmod: "2019-12-29"
----
++++
+title = "debian中安装shadowsocks"
+template = "page.html"
+date = "2019-12-28"
+updated = "2019-12-29"
++++
+
 
 安装 `shadowsocks-libev`：
 

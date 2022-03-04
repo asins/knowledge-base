@@ -1,3 +1,10 @@
++++
+title = "Boolean操作"
+template = "page.html"
+date = "2022-03-04"
+updated = "2022-03-04"
++++
+
 ## 字符转Bool
 
 ```js

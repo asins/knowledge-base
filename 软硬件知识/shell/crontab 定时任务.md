@@ -1,8 +1,10 @@
----
-title: "crontab 定时任务"
-date: "2019-08-21"
-lastmod: "2019-08-21"
----
++++
+title = "crontab 定时任务"
+template = "page.html"
+date = "2019-08-21"
+updated = "2019-08-21"
++++
+
 
 ## 安装
 

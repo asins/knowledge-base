@@ -1,3 +1,10 @@
++++
+title = "glep 搜索工具"
+template = "page.html"
+date = "2022-03-04"
+updated = "2022-03-04"
++++
+
 ```sh
 grep -rnw '/path/to/somewhere/' -e 'pattern'
 ```

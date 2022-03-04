@@ -1,8 +1,10 @@
----
-title: "使用hugo生成自己的静态网站"
-date: "2020-04-20"
-lastmod: "2020-05-05"
----
++++
+title = "使用hugo生成自己的静态网站"
+template = "page.html"
+date = "2020-04-20"
+updated = "2020-05-05"
++++
+
 
 
 ## 背景

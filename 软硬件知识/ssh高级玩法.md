@@ -1,8 +1,10 @@
----
-title: "ssh高级玩法"
-date: "2019-08-21"
-lastmod: "2020-05-05"
----
++++
+title = "ssh高级玩法"
+template = "page.html"
+date = "2019-08-21"
+updated = "2020-05-05"
++++
+
 
 ## ssh user@host 直接登录远程主机
 

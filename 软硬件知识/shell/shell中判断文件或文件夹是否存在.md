@@ -1,8 +1,10 @@
----
-title: "shell中判断文件或文件夹是否存在"
-date: "2019-08-21"
-lastmod: "2019-08-21"
----
++++
+title = "shell中判断文件或文件夹是否存在"
+template = "page.html"
+date = "2019-08-21"
+updated = "2019-08-21"
++++
+
 
 ```sh
 #shell判断文件夹是否存在

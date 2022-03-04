@@ -1,8 +1,10 @@
----
-title: "Centos安装Nginx PHP MySql"
-date: "2019-08-21"
-lastmod: "2020-04-21"
----
++++
+title = "Centos安装Nginx PHP MySql"
+template = "page.html"
+date = "2019-08-21"
+updated = "2020-04-21"
++++
+
 
 ```bash
 # ls -alZ 可以查看到目录的状态

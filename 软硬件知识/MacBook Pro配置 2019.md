@@ -1,3 +1,10 @@
++++
+title = "MacBook Pro配置 2019"
+template = "page.html"
+date = "2022-03-04"
+updated = "2022-03-04"
++++
+
 ## 系统配置
 
 ### 网络

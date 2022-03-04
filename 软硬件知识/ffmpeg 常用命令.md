@@ -1,3 +1,10 @@
++++
+title = "ffmpeg 常用命令"
+template = "page.html"
+date = "2022-03-04"
+updated = "2022-03-04"
++++
+
 ## 1. 视频转换
 
 比如一个avi文件，想转为mp4，或者一个mp4想转为ts。
