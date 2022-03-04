@@ -1,4 +1,4 @@
-import { resolve, extname, basename } from "https://deno.land/std@v0.42.0/path/mod.ts"
+import { resolve, extname, basename } from "https://deno.land/std@v0.127.0/path/mod.ts"
 
 const { readDir, readFile, lstat } = Deno;
 
@@ -17,10 +17,37 @@ async function setFileTxt(path: string, txt: string) {
 }
 
 async function formatFile(path: string, dirEntry: Deno.DirEntry) {
-  const txt: string = await getFileTxt(path);
+  let txt: string = await getFileTxt(path);
+  let creatDate: string = '';
+  let modified: string = '';
 
-  if (/^---\n/g.test(txt)) {
-    console.log('[已存在YAML信息]', path);
+  const endStr = '\n---\n';
+  const endIndex = txt.indexOf(endStr);
+  if (endIndex > -1) {
+    /**
+     * title: "Template 模板引擎"
+     * date: "2019-08-21"
+     * lastmod: "2019-08-21"
+     */
+    console.log('[已存在YAML信息] 开始转为TOML格式', path);
+    // txt = txt.replace(/(^|\n)-{3,}\n/g, '$1+++\n');
+    const yamlStr = txt.slice(0, endIndex);
+
+    let tempStr = /\ndate:\s+"(.*?)"\n/g.exec(yamlStr);
+    if(tempStr) {
+      creatDate = tempStr[1];
+    }
+
+    tempStr = /\nlastmod:\s+"(.*?)"\n/g.exec(yamlStr);
+    if(tempStr) {
+      modified = tempStr[1];
+    }
+
+    txt = txt.slice(endIndex + endStr.length);
+  }
+
+  if (/^\+{3}\n/g.test(txt)) {
+    console.log('[已存在TOML信息]', path);
     return;
   }
 
@@ -30,14 +57,19 @@ async function formatFile(path: string, dirEntry: Deno.DirEntry) {
   const title = basename(dirEntry.name, ext);
 
   // console.log(Object.keys(fileInfo));
-  const creatDate = formatDate(fileInfo.birthtime); // 文件创建时间
-  const modified = formatDate(fileInfo.mtime); // 文件修改时间
+  if (!creatDate) {
+    creatDate = formatDate(fileInfo.birthtime); // 文件创建时间
+  }
+  if (!modified) {
+    modified = formatDate(fileInfo.mtime); // 文件修改时间
+  }
 
-  const yamlTxt = `---
-title: "${title}"
-date: "${creatDate}"
-lastmod: "${modified}"
----
+  const yamlTxt = `+++
+title = "${title}"
+template = "page.html"
+date = "${creatDate}"
+updated = "${modified}"
++++
 
 ${txt}`;
 
