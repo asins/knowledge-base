@@ -44,7 +44,7 @@ vim /etc/wireguard/wg0.conf
 
 `/etc/wireguard/wg0.conf`配置内容：
 
-```xaml
+```toml
 [Interface]
 PrivateKey = <Private Key>
 Address = 10.200.200.1/24
@@ -78,7 +78,7 @@ $ vim wg0.conf
 
 `/usr/local/etc/wireguard/wg0.conf`配置内容：
 
-```xaml
+```toml
 [Interface]
 PrivateKey = <Private Key>
 Address = 10.200.200.3/24

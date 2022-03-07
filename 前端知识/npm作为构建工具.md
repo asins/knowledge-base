@@ -1,5 +1,5 @@
 +++
-title = "npm作为构建工具"
+title = "npm 作为构建工具"
 template = "page.html"
 date = "2019-08-21"
 updated = "2019-08-21"
@@ -32,7 +32,7 @@ npm 是一个很好的工具，提供了一些奇特的功能，也是 NodeJS �
 如果运行 `npm run lint`，npm 将在终端中执行 `jshint **.js`，如果运行 `npm run test`，npm 将在终端中执行 `mocha test/`。执行 `npm run xxx` 时会将 `node_modules/.bin` 加入终端的 `PATH` 环境变量中，这样你就可以直接运行那些作为依赖安装的二进制模块，也就是说你不需要 `"./node_modules/.bin/jshint **.js"` 或 `"$(npm bin)/jshint **.js"` 这样来指定命令的路径。如果执行不带参数的 `npm run` 命令，它将列举出目前可执行的命令：
 
 ```
-Available scripts in the user-service package:  
+Available scripts in the user-service package:
   lint
      jshint **.js
   test
@@ -60,7 +60,7 @@ npm 也为一些内置命令（`install`，`uninstall`，`publish` 和 `update`�
     "build": "browserify index.js > myproject.min.js",
     "test": "mocha test/",
 
-    "prepublish": "npm run build # also runs npm run prebuild",    
+    "prepublish": "npm run build # also runs npm run prebuild",
     "prebuild": "npm run test # also runs npm run pretest",
     "pretest": "npm run lint"
   }
@@ -235,7 +235,7 @@ npm 的一个核心功能就是版本管理，运行
 
 好吧，其实很多工具自身就提供了这个选项，可以用于监听复杂的文件系统。比如 [Mocha](https://www.npmjs.org/package/mocha) 就提供了 `-w` 选项，还有 [Stylus](https://www.npmjs.org/package/stylus)、[Node-Sass](https://www.npmjs.org/package/node-sass)、[Jade](https://www.npmjs.org/package/jade) 和 [Karma](https://www.npmjs.org/package/karma) 等等。你可以这样使用：
 
-```son
+```json
 "devDependencies": {
   "mocha": "latest",
   "stylus": "latest"
@@ -305,7 +305,7 @@ LiveReload 也是一个很受欢迎的特性：当文件变化时自动刷新浏
 ```
 
 ```html
-<!-- In your HTML file -->  
+<!-- In your HTML file -->
 <script src="//localhost:9091"></script>
 ```
 
@@ -317,9 +317,9 @@ LiveReload 也是一个很受欢迎的特性：当文件变化时自动刷新浏
 
 ```js
 // scripts/favicon.js
-var favicons = require('favicons');  
-var path = require('path');  
-favicons({  
+var favicons = require('favicons');
+var path = require('path');
+favicons({
     source: path.resolve('../assets/images/logo.png'),
     dest: path.resolve('../dist/'),
 });
@@ -348,7 +348,7 @@ favicons({
 
 我将本例的完整代码放在 [npm-scripts-example](https://github.com/keithamus/npm-scripts-example) 这个代码库中，下面是我们最关注的部分：
 
-```son
+```json
 "scripts": {
     "clean": "rimraf dist/*",
 
@@ -386,6 +386,6 @@ favicons({
 
 希望通过本文你了解到了 npm 在构建方面的能力，当需要构建一个项目时 Grunt/Gulp 并不一定是首选工具，或许 npm 就能满足你的需求。
 
-[完]
+【完】
 
 原文：[How to Use npm as a Build Tool](http://blog.keithcirkel.co.uk/how-to-use-npm-as-a-build-tool/)

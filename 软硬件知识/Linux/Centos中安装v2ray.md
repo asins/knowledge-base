@@ -1,5 +1,5 @@
 +++
-title = "Centos中安装v2ray"
+title = "Centos 中安装 v2ray"
 template = "page.html"
 date = "2020-04-18"
 updated = "2020-04-20"
@@ -18,7 +18,7 @@ yum install langpacks-zh_CN.noarch -y
 
 
 
-### 开启bbr加速
+### 开启 bbr 加速
 
 ```bash
 echo net.core.default_qdisc=fq >> /etc/sysctl.conf
@@ -29,12 +29,12 @@ sysctl -p
 
 # 查看配置情况
 sysctl net.ipv4.tcp_available_congestion_control
-# 输出像这样就OK了
+# 输出像这样就 OK 了
 #net.ipv4.tcp_available_congestion_control = bbr cubic reno
 
 # 检测 BBR 是否开启
 lsmod | grep bbr
-# 输出像这样就OK了
+# 输出像这样就 OK 了
 #tcp_bbr                20480  14
 
 ```
@@ -43,9 +43,9 @@ lsmod | grep bbr
 
 
 
-## Nginx安装及配置
+## Nginx 安装及配置
 
-安装参考了https://tlanyan.me/v2ray-traffic-mask/
+安装参考了 https://tlanyan.me/v2ray-traffic-mask/
 
 
 
@@ -55,7 +55,7 @@ lsmod | grep bbr
 yum install nginx -y
 ```
 
-#### 配置nginx：
+#### 配置 nginx：
 
 将下面配置保存为`/etc/nginx/conf.d/blog.nootn.com.conf`文件
 
@@ -73,7 +73,7 @@ server {
   server_name blog.nootn.com;
   charset utf-8;
 
-  # ssl配置
+  # ssl 配置
   ssl on;
   ssl_certificate /etc/nginx/ssl/3554369_blog.nootn.com.pem; # 改成你的证书地址
   ssl_certificate_key /etc/nginx/ssl/3554369_blog.nootn.com.key; # 改成证书密钥文件地址
@@ -83,7 +83,7 @@ server {
   ssl_session_timeout 10m;
   ssl_session_tickets off;
 
-  ssl_protocols TLSv1.2 TLSv1.3; # tls 1.3要求nginx 1.13.0及以上版本
+  ssl_protocols TLSv1.2 TLSv1.3; # tls 1.3 要求 nginx 1.13.0 及以上版本
 
   access_log  /var/log/nginx/blog.nootn.com.access.log;
   error_log /var/log/nginx/blog.nootn.com.error.log;
@@ -94,7 +94,7 @@ server {
   }
 
   location /caniuse {
-    if ($http_upgrade != "websocket") { # WebSocket协商失败时返回404
+    if ($http_upgrade != "websocket") { # WebSocket 协商失败时返回 404
         return 404;
     }
     proxy_redirect off;
@@ -111,7 +111,7 @@ server {
 }
 ```
 
-```shell
+```bash
 # 设置开机启动
 systemctl enable nginx
 ```
@@ -131,7 +131,7 @@ firewall-cmd --list-all
 
 
 
-## v2ray安装配置
+## v2ray 安装配置
 
 #### 安装 `v2ray`：
 
@@ -140,16 +140,16 @@ bash <(curl -L -s https://install.direct/go.sh)
 
 # 设置开机启动
 systemctl enable v2ray
-# 运行v2ray
+# 运行 v2ray
 systemctl start v2ray
 
-# 命令可以查看v2ray是否正在运行
+# 命令可以查看 v2ray 是否正在运行
 ss -ntlp | grep v2ray
 ```
 
 
 
-#### 配置`v2ray`: 
+#### 配置`v2ray`:
 
 打开`/etc/v2ray/config.json`文件并配置，这样就完成服务端的设置
 
@@ -285,17 +285,17 @@ ss -ntlp | grep v2ray
 
 
 
-### 解除SeLinux限制
+### 解除 SeLinux 限制
 
-上面的操作后，nginx可能会报错：
+上面的操作后，nginx 可能会报错：
 
-```log
+```
 failed (13: Permission denied) while connecting to upstream, client
 ```
 
-这主要是因为SeLinux的限制导致，可以执行下面的命令：
+这主要是因为 SeLinux 的限制导致，可以执行下面的命令：
 
-```shell
+```bash
 setsebool -P httpd_can_network_connect 1
 ```
 

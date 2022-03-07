@@ -18,7 +18,7 @@ VSCode 内置了对 Node.js 的调试支持，如果你需要调试其他语言�
 
 如果你此刻正在电脑前，不妨先把 [代码](https://github.com/barretlee/debugging-in-vscode-tutorial) 克隆到本地，跟着一起动手操作，
 
-```shell
+```bash
 # https://github.com/barretlee/debugging-in-vscode-tutorial
 git clone git@github.com:barretlee/debugging-in-vscode-tutorial.git;
 cd debugging-in-vscode-tutorial
@@ -134,7 +134,7 @@ Copy
 
 ```json
 {
-  "name": "[错误]调试 TS Node 程序 - ts-node",
+  "name": "【错误】调试 TS Node 程序 - ts-node",
   "type": "node",
   "request": "launch",
   "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/ts-node",
@@ -180,7 +180,7 @@ Copy
 
 这里就要提到 `request` 的另外一个值 `attach` 了，如果你理解了 [背后的原理](https://www.barretlee.com/blog/2015/10/07/debug-nodejs-in-command-line/#menuIndex1)，你会觉得这个单词用的十分贴切。我们先用 node 来启动 `src` 下的 `index.js`：
 
-```shell
+```bash
 node ./src/index.js
 ```
 
