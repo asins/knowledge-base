@@ -3,7 +3,19 @@ title = "Array操作"
 template = "page.html"
 date = "2020-02-24"
 updated = "2020-04-14"
+
 +++
+
+### 创建每项值自增长的数组
+
+```typescript
+function createAutoIncrementArray(len) {
+  return Array.apply(null, {
+    length: len
+  }).map((_x, i) => i + 1);
+}
+```
+
 
 
 ### 对Array分组
@@ -34,7 +46,23 @@ function arraySplit(list, limitLen) {
 arraySplit([2, 3, 4, 5, 6, 7, 8], 3);
 ```
 
+使用`reduce` 方法来实现也是挺简单，运算复杂度都只有n：
+
+```js
+function arraySplit(list, limitLen) {
+  return list.reduce((res, item, i) => {
+    const key = parseInt(i / limitLen);
+    if(!res[key]) res[key] = [];
+    res[key].push(item);
+    return res;
+  }, []);
+}
+```
+
+
+
 ### 类Array对象转为Array
+
 ```js
 /**
  * convert array-like objects to real arrays

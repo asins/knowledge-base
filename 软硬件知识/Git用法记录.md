@@ -3,6 +3,7 @@ title = "Git用法记录"
 template = "page.html"
 date = "2019-08-21"
 updated = "2020-05-05"
+
 +++
 
 
@@ -325,7 +326,26 @@ git filter-branch --env-filter '
 # --tag-name-filter cat -- --branches --tags
 ```
 
+### 不同目录配置不同git config
 
+个人会用不同的文件夹区分公司与个人的repo，这样就可以通过[git conditional include](https://git-scm.com/docs/git-config#_conditional_includes)，给不同目录下的repo，设置不同的`git config`。假设公司repo，会放在`work`目录下。
+
+新建一个`.gitconfig-work`，内容如下
+
+``` toml 
+[user]
+    name = name2
+    email = name2@example.com
+```
+
+打开全局配置`.gitconfig`文件，添加目录配置
+
+```toml
+[includeIf "gitdir:~/work/"]
+    path = .gitconfig-work
+```
+
+这样`work`下的新repo，都会使用`.gitconfig-work`中的配置覆盖全局配置，从而达到不同目录使用不同的`git config`
 
 ## 其它
 
