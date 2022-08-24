@@ -345,9 +345,46 @@ git filter-branch --env-filter '
     path = .gitconfig-work
 ```
 
-这样`work`下的新repo，都会使用`.gitconfig-work`中的配置覆盖全局配置，从而达到不同目录使用不同的`git config`
+这样`work`下的新repo，都会使用`.gitconfig-work`中的配置覆盖全局配置，从而达到不同目录使用不同的`git config`。执行以下命令查看`.gitconfig-work`中配置是否生效
+
+```bash 
+git config --show-origin --get user.name
+git config --show-origin --get xxxx
+```
 
 ## 其它
+
+### 删除仓库历史中的大文件
+
+#### 安装git-filter-repo
+[官方Git库有很详细的说明](https://github.com/newren/git-filter-repo/blob/main/INSTALL.md)
+
+#### 找出要删除的大文
+按照文件大小升序排列并取最后40个文件
+
+```bash
+git rev-list --objects --all | grep "$(git verify-pack -v .git/objects/pack/*.idx | sort -k 3 -n | tail -40 | awk '{print$1}')"
+```
+
+注意嵌套语句会导致排序错乱，可以拆开逐个寻找文件
+```bash
+git verify-pack -v .git/objects/pack/*.idx | sort -k 3 -n | tail -40
+git rev-list --objects --all | grep 文件对应的id
+```
+
+####  彻底删除大文件
+由于本人不小心上传了大量csv文件，因此使用正则匹配将所有csv文件删除
+
+```bash
+git filter-repo --force --invert-paths --path-regex .+\.csv
+```
+
+#### 强制推送到远端
+由于修改了历史的commit，因此仓库无法正常推送到远端，需要进行强制推送
+
+```bash
+git push -f origin master
+```
 
 ### Beyond Compare 比较工具配置
 

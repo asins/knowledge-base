@@ -3,6 +3,7 @@ title = "crontab 定时任务"
 template = "page.html"
 date = "2019-08-21"
 updated = "2019-08-21"
+
 +++
 
 
@@ -114,8 +115,8 @@ tail -f /var/log/cron
 */30 * * * * /usr/sbin/ntpdate 210.72.145.20
 # 每半小时同步一下时间
 
-# 每周4下午2:10发消息
 10 14 *  *  4 wkli /home/wkli/zhoubao.sh . $'\n' >> /home/wkli/zhoubao.log 2>&1
+# 每周4下午2:10发消息
 
 ```
 

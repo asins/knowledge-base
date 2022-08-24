@@ -19,6 +19,7 @@ function initWebsocket(
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (!hasReturned) {
+        websocket.close();
         const msg = `opening websocket timed out:${url}`;
         // console.info(`${msg}: ${ url}`);
         rejectInternal(new Error(msg));
