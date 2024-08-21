@@ -136,6 +136,14 @@ const getCurrentUser = (req: Request): CurrentUser => {
 type MyString = string;
 ```
 
+### 实用程序
+
+Typescript 提供了一组实用程序来帮助处理字符串。它们不是模板字面量类型独有的，但与它们结合使用时很方便。完整列表如下：
+
+- `Uppercase<StringType>`：将类型转换为大写。
+- `Lowercase<StringType>`：将类型转换为小写。
+- `Capitalize<StringType>`：将类型第一个字母大写。
+- `Uncapitalize<StringType>`：将类型第一个字母小写。
 
 ## 二、关键字
 
@@ -227,7 +235,19 @@ loggingIdentity({length: 10, value: 3});
 
 ## 三、工具类型
 
-### Partial
+### Awaited\<Type\>
+
+这种类型旨在对函数`await`中的操作`async`或 `.then()`上的方法进行建模`Promise`- 具体来说，它们以递归方式解开`Promise`。
+
+```typescript
+type A = Awaited<Promise<string>>; // type A = string
+ 
+type B = Awaited<Promise<Promise<number>>>; // type B = number
+
+type C = Awaited<boolean | Promise<number>>; // type C = number | boolean
+```
+
+### Partial\<T\>
 
 Partial<T>: 可以将传入类型 T 的所有属性变为可选属性。
 
@@ -241,7 +261,7 @@ type Foo = {
 const partFoo: Partial<Foo> = {};
 ```
 
-### Required
+### Required\<T\>
 
 Required<T>: Required 与 Partial 刚好相反，功能是将传入类型 T 的所有可选项转换为必选项。
 
@@ -258,7 +278,7 @@ const requiredFoo: Required<Foo> = {
 };
 ```
 
-### Readonly
+### Readonly\<T\>
 
 Readonly<T>: Readonly 可以将构造类型 T 的所有属性转换为只读属性。
 
@@ -275,7 +295,7 @@ const readonlyFoo: ReadonlyFoo = {
 // readonlyFoo.foo = 'bar'  //Error 
 ```
 
-### Record
+### Record<K, T>
 
 Record<K, T>: 类型复制，将构造类型 T 设置到属性 K 上。
 
@@ -294,9 +314,11 @@ const baz: Baz = {
 };
 ```
 
-### Pick
+### Pick<T, K>
 
-PicK<T, K extends keyof T>: 挑选属性，将属性 T 中的其中一部分属性挑选出来
+通过从中选择一组属性K（字符串文字或字符串文字的联合）来构造一个类型T。
+
+Pick<T, K extends keyof T>: 挑选属性，将属性 T 中的其中一部分属性挑选出来
 
 ```typescript
 // type Pick<T, K extends keyof T> = { [P in K]: T[P]; }
@@ -314,7 +336,7 @@ const transportAble: Transportable = {
 };
 ```
 
-### Omit
+### Omit<T, K>
 
 Omit<T, K>: Omit 与 Pick刚好相反，它是剔除选定属性，使用剩余类型构造新类型。
 
@@ -333,7 +355,7 @@ const myomit: MyOmit = {
 }
 ```
 
-### Exclude
+### Exclude<T, K>
 
 Exclude<T, K>: 去除 T 类型中于K类型包含的相同属性，使用剩余属性构造一个新类型
 
@@ -347,7 +369,7 @@ type Baz = Exclude<string | number | (() => void), Function>;
 type TExcludeTrain = Exclude<Foo, Baz>; // naver
 ```
 
-### Extract
+### Extract<T, K>
 
 Extract<T, K>: 获取构造类型 T, K 中相同的类型构造一个新的类型
 
@@ -359,7 +381,7 @@ type Bar = Extract<string | number | (() => void), Function>;
 // () => void
 ```
 
-### NonNullable
+### NonNullable\<T\>
 
 NonNullable<T>:  去除类型 T 中的 null 与 undefined
 
@@ -370,7 +392,7 @@ type NoNonNullType = NonNullable<string | null | number>;
 let noNonNullType: NoNonNullType = 10;
 ```
 
-### ReturnType
+### ReturnType\<T\>
 
 构造一个由函数类型返回值类型 T 的类型
 
@@ -383,7 +405,7 @@ type ReturnNumArr = ReturnType<<T extends U, U extends number[]>() => T>;
 const numbers: ReturnNumArr = [1, 2];
 ```
 
-### InstanceType
+### InstanceType\<T\>
 
 由构造函数类型 T 的实例类型构造一个类型
 
@@ -399,4 +421,4 @@ let newHuman2: HumanType = new Human();
 
 ## 四、官方文档：
 
-https://www.tslang.cn/docs/release-notes/typescript-3.1.html
+更详细的说明：https://www.typescriptlang.org/docs/handbook/utility-types.html

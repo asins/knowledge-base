@@ -29,6 +29,25 @@ String.prototype.bool = function strToBool(s)
     return regex.test(s);
 }
 // alert("true".bool());
+
+/**
+ * 字符的true/FALSE 转为boolean类型，其它字符原样返回
+ * @param str {string} 待转为boolean的字符串
+ * @param faceBool {boolean} 如果str非有效boolean的字符串时是否强制返回bool结果。不指定则强制返回boolean的值
+ * @example
+ *   stringToBool('true', false); // true
+ *   stringToBool('true', false); // true
+ *   stringToBool('abc', false); // 'abc'
+ *   stringToBool('abc'); // false
+ *   stringToBool('abc', true); // false
+ */
+function stringToBool(str: string, faceBool?: boolean): string | boolean {
+  const val = str.toLowerCase();
+  if ((val === 'true' || val === 'false')) {
+    return val === 'true';
+  }
+  return faceBool === false ? val : false;
+}
 ```
 
 上面的代码因为是直接加在String原型链上的，所以对传入值没有考虑其它类型，完整的判断（没有使用正则是为了有更高的性能）：

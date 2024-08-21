@@ -1,10 +1,3 @@
-+++
-title = "Mac系统查看端口战胜和杀死进程"
-template = "page.html"
-date = "2019-08-21"
-updated = "2020-05-05"
-+++
-
 
 # Mac 系统查看端口占用和杀死进程
 
@@ -27,4 +20,8 @@ nettop -nm tcp
 ```sh
 kill -9 pid
 ```
+
+
+
+
 

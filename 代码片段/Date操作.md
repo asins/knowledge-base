@@ -49,7 +49,8 @@ export function format(date, fmt = 'yyyy-MM-dd', opt = {}) {
     if (extend) {
       return typeof extend === 'function' ? extend(str, $0) : extend[str];
     } else {
-      return (`00${str}`).substr(-$0.length);
+      const len = Math.max(String(str).length, $0.length);
+      return (`00${str}`).slice(-len);
     }
   });
 }
@@ -166,6 +167,67 @@ export function release(start, end?, format = 'YYYY年MM月DD日') {
   return formatDate(format, start);
 }
 ```
+
+## 友好时间显示（支持过去、未来）
+
+```typescript
+import { ONE_SECOND } from '@/config';
+import { isString } from '@theroyalwhee0/istype';
+
+/**
+ * 提示距离当天零点过去了多少时间
+ * @param {Number|Date} start 开始时间
+ * @param {Number|Date} end 结束时间
+ * @param {String} format 大于25天后显示的样式
+ */
+export function release(start: number | string | Date, end?: number | string | Date) {
+  if (start === undefined) {
+    start = new Date();
+  } else {
+    start = new Date(isString(start) ? parseInt(start, 10) : start);
+  }
+  if (end === undefined) {
+    end = new Date();
+  } else {
+    end = new Date(isString(end) ? parseInt(end, 10) : end);
+  }
+
+  const minute = 60; // 一分钟秒数
+  const hour = minute * 60; // 一小时秒数
+  const day = hour * 24; // 一天秒数
+
+  const endZero = new Date(end);
+  endZero.setHours(0, 0, 0, 0); // 凌晨时间
+  const diff = (+end - +start) / ONE_SECOND;
+  const diffZero = (+end - +endZero) / ONE_SECOND;
+
+  if (diff < -(diffZero + day * 2)) {
+    return `${-Math.floor(diff / day)}天前`;
+  } else if (diff < -(diffZero + day)) {
+    return '前天';
+  } else if (diff < -diffZero) {
+    return '昨天';
+  } else if (diff < -hour) {
+    return `${-Math.floor(diff / hour)}小时前`;
+  } else if (diff < -minute) {
+    return `${-Math.floor(diff / minute)}分钟前`;
+  } else if (diff <= minute) {
+    return '刚刚';
+  } else if (diff <= hour) {
+    return `${Math.floor(diff / minute)}分钟后`;
+  } else if (diff <= diffZero) {
+    return `${Math.floor(diff / hour)}小时后`;
+  } else if (diff <= diffZero + day) {
+    return '明天';
+  } else if (diff <= diffZero + day * 2) {
+    return '后天';
+  } else {
+    return `${Math.floor(diff / day)}天后`;
+  }
+}
+```
+
+
 
 ## 常用时间计算
 

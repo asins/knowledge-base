@@ -1,10 +1,3 @@
-+++
-title = "rg 搜索工具"
-template = "page.html"
-date = "2019-08-21"
-updated = "2022-03-21"
-+++
-
 
 ripgrep 命令行快速搜索工具
 

@@ -150,6 +150,9 @@ ln -sfv ~/Code/dotfiles/nginx/nginx.conf /usr/local/etc/nginx/nginx.conf
 sudo mkdir /var/log/nginx
 sudo chmod 777 /var/log/nginx
 
+# nginx出现403 forbidden的解决方法：nginx.conf头部的user改成 user root owner 
+user root owner 
+
 # 加管理员权限
 sudo chown root:wheel /usr/local/opt/nginx/bin/nginx
 sudo chmod u+s /usr/local/opt/nginx/bin/nginx
@@ -208,6 +211,26 @@ brew install ripgrep
 
 Mysq 数据库的开源版本，不再受公司限制。
 
+### Alacritty
+
+**shell 快捷键 - 光标移动和编辑：**
+
+- `C-a` 光标回到行首, `C-e` 光标回到行尾
+- `C-f` 光标向前移动一个字符，`C-b` 光标向后移动一个字符
+- `Alt-f` 光标向前移动一个单词, `Alt-b` 光标向后移动一个单词
+- `C-k` 清掉光标后面的部分, `C-d` 删掉光标后的一个字符 或 退出
+- `C-l` 相当于 `clear` 命令，清屏
+
+**shell 快捷键 - 回翻历史命令：**
+
+- `C-p` 向上翻历史命令， `C-n` 向下翻历史命令
+- `C-r` 向上搜索历史命令 (顺手推荐搜索命令历史的增强工具 [fzf](https://github.com/junegunn/fzf))
+
+**shell 快捷键 - 进程挂起：**
+
+- `C-z` 挂起当前进程到后台
+- `fg` 以恢复到前台
+
 ### fish
 
 fish 是个全新的 shell 工具，比 bash 之类有更好的交互提示，比 zsh 有更好的性能，缺点是语法不是标准的 sh，但 shell 脚本用的不多，我愿意接受这个。
@@ -217,16 +240,19 @@ fish 是个全新的 shell 工具，比 bash 之类有更好的交互提示，�
 brew install fish
 # 将 fish 添加到 mac shell 列表中
 sudo bash -c "echo '/usr/local/bin/fish' >> /etc/shells"
-# 将 fish 设置为默认 shell（不推荐）
-# chsh -s /usr/local/bin/fish
+# 将 fish 设置为默认 shell
+chsh -s /usr/local/bin/fish
+# 安装极简命令行提示符
+brew install starship
+bash -c "starship init fish | source" >> ~/.config/fish/config.fish
 
 # 安装 fish 包管理器
 curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
 
 # 快速跳转到其它目录
-fisher install z
-# 很不错的主题
-fisher install pure-fish/pure
+fisher install jethrokuan/z
+# 很不错的主题（2022-10-22：改用starship）
+# fisher install IlanCosman/tide@v5
 ```
 
 ### google-chrome
@@ -303,8 +329,8 @@ shell 客户端，以下是分屏常用快捷键：
 - `command + alt + b`：快照回放。很有意思的功能，你可以对你的操作根据时间轴进行回放。可以拖动下方的时间轴，也可以按左右方向键
 - `Command + Shift + h` 呼出粘贴历史
 
-### yyets
-人人影视客户端
+### ~~yyets~~
+人人影视客户端，已经不玩了。
 
 ### imageoptim
 图片无损压缩工具

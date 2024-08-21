@@ -1,12 +1,3 @@
-+++
-title = "Number操作"
-template = "page.html"
-date = "2019-08-21"
-updated = "2020-02-24"
-+++
-
-
-
 
 # JS Number操作
 

@@ -1,11 +1,3 @@
-+++
-title = "Git用法记录"
-template = "page.html"
-date = "2019-08-21"
-updated = "2020-05-05"
-
-+++
-
 
 ## Git 用法
 
@@ -235,21 +227,29 @@ git push -f
 
 > **注意：本地分支回滚后，版本将落后远程分支，必须使用强制推送覆盖远程分支，否则无法推送到远程分支**
 
+### 从暂存区移除文件
+
+```bash
+# 将指定的文件从暂存区移除
+git restore --staged <filename>
+```
+
+
+
 ## 提交规范
 
 
 git 每次提交需要标识当前所做修改的类型，以开源社区通用加前缀的做法区分。
+- feat: 新增功能
+- fix: 修复 bug
+- docs: 文档相关的改动
+- style: 对代码的格式化改动，代码逻辑并未产生任何变化(例如代码缩进，分号的移除和添加)
+- test: 新增或修改测试用例
+- refactor: 重构代码或其他优化举措
+- chore: 项目工程方面的改动，代码逻辑并未产生任何变化
+- revert: 恢复之前的提交
 
-- feat: 新功能
-- fix:  修复 bug
-- docs: 修改文档
-- style:  修改代码格式，不影响代码逻辑
-- refactor:  重构代码，理论上不影响现有功能
-- pref:  提升性能
-- test:  增加修改测试用例
-- chore:  修改工具相关（包括但不限于文档 代码生成等）
-- deps:  升级依赖
-- WIP: 功能开发进行中
+
 
 ## 常见问题
 
@@ -306,6 +306,7 @@ git commit --amend --author="asins <name@mail.com>"
 如果记录比较多就得使用下面的方式了：
 
 ```sh
+# ------------- 已废弃      改用git-filter-repo工具 ---------
 git filter-branch --env-filter '
   # 如果 Git 用户名等于老的 Git 邮箱 wrong@example.com
   WRONG_EMAIL="wrong@example.com"
@@ -325,6 +326,18 @@ git filter-branch --env-filter '
 ' --tag-name-filter cat -- --all 
 # --tag-name-filter cat -- --branches --tags
 ```
+
+```bash
+# 安装工具
+pip install git-filter-repo
+
+# 替换所有提交中的指定用户信息
+git filter-repo --email-map <(echo "aaa@aaaa.com -> bbb@bbb.com")
+```
+
+
+
+
 
 ### 不同目录配置不同git config
 
