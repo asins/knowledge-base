@@ -61,68 +61,68 @@ export function format(date, fmt = 'yyyy-MM-dd', opt = {}) {
 ### 改为TS的版本
 
 ```typescript
-type Formatter = (val: number, pattern: string) => string;
-
-type Formatters = { [ token: string ]: Formatter; };
-type FormattersNumber = { [ token: string ]: number; };
-
 /**
  * 格式化日期
- * @method format
- * @static
- * @param {Date} date 日期对象
- * @param {string} pattern 日期格式(y年M月d天h时m分s秒)，默认为'yyyy-MM-dd'
- * @return {string}  返回format后的字符串
+ * @param date 日期对象
+ * @param fmt 日期格式(y年M月d天h时m分s秒)，默认为'yyyy-MM-dd'
+ * @param opt 其它设置项
+ *   - isUTC 是否收集UTC的时间信息
+ * @return 返回format后的字符串
  * @example
- var d = new Date(2017, 8, 27, 15, 9, 12, 345);
- console.log(format(d, 'yyyy-MM-d/q hh:mm:ss.S, e')); // 2017-09-27/No.3 15:09:12.345, 3
- console.log(format(d, 'M/d/yy')); // 9/27/17
- console.log(format(d, 'yyyy-MM-dd hh:mm:ss.S')); // 2017-09-27 15:09:12.345
-
- var t = format(d, 'yyyy年M月dd日 e (第q季)', {
- e: (val, pattern) => {return (pattern.length > 1 ? '星期': '周') + '日一二三四五六'[val];},
- q: '一二三四',
- });
- console.log(t); // 2017年9月27日 周三 (第四季)
+ *   const d = new Date(2017, 8, 27, 15, 9, 12, 345);
+ *   console.log(formatDate(d, 'yyyy-MM-d/q hh:mm:ss.S, e')); // 2017-09-27/No.3 15:09:12.345, 3
+ *   console.log(formatDate(d, 'M/d/yy')); // 9/27/17
+ *   console.log(formatDate(d, 'yyyy-MM-dd hh:mm:ss.S')); // 2017-09-27 15:09:12.345
  */
-function formatDate(date: Date | null, fmt = 'yyyy-MM-dd', opt: Formatters = {}) {
-  // if (typeof date === 'string') {
-  //   date = date.replace(/-/g, '/');
-  // }
+export function formatDate(
+  date: Date,
+  fmt: string = 'yyyy-MM-dd',
+  opt: FormatDateOption = {}
+): string {
+  const fnPrefix = opt.isUTC === true ? 'UTC' : ''
 
-  date = date === null ? new Date() : new Date(date);
+  return fmt.replace(/([yMdhmsSqe])\1*/g, (match, $1): string => {
+    let str: string | number = ''
 
-  const formatters = {
-    y: date.getFullYear(), // 年份
-    M: date.getMonth() + 1, //月份
-    d: date.getDate(), //日
-    h: date.getHours(), //小时
-    m: date.getMinutes(), //分
-    s: date.getSeconds(), //秒
-    S: date.getMilliseconds(), //毫秒
-    q: Math.floor((date.getMonth() + 3) / 3), //季度
-    e: date.getDay(), // 星期（0-6）
-  } as FormattersNumber;
-
-  return fmt.replace(
-    new RegExp(/([yMdhmsSqe])\1*/, 'g')
-    ,function($0: string, $1: string) {
-      if (!$1) $1 = $0;
-
-      const extend = opt[$1];
-      if (extend) {
-        return typeof extend === 'function'
-          ? extend(formatters[$1], $0)
-          : extend[formatters[$1]];
-      } else {
-        return $0.length === 1
-          ? formatters[$1]
-          : ('0' + formatters[$1]).substr(-$0.length);
-      }
+    switch ($1) {
+      case 'y': // 年份
+        str = date[`get${fnPrefix}FullYear`]()
+        break
+      case 'M': // 月份
+        str = date[`get${fnPrefix}Month`]() + 1
+        break
+      case 'd': // 日
+        str = date[`get${fnPrefix}Date`]()
+        break
+      case 'h': // 小时
+        str = date[`get${fnPrefix}Hours`]()
+        break
+      case 'm': // 分
+        str = date[`get${fnPrefix}Minutes`]()
+        break
+      case 's': // 秒
+        str = date[`get${fnPrefix}Seconds`]()
+        break
+      case 'S': // 毫秒
+        str = date[`get${fnPrefix}Milliseconds`]()
+        break
+      case 'q': // 季度（0-3）
+        str = Math.floor(date[`get${fnPrefix}Month`]() / 3)
+        break
+      case 'e': // 星期（0-6）
+        str = date[`get${fnPrefix}Day`]()
+        break
     }
-  );
+
+    const len = Math.max(String(str).length, match.length)
+    return `00${str}`.slice(-len)
+  })
 }
 
+export interface FormatDateOption {
+  /** 是否收集UTC的时间信息 */
+  isUTC?: boolean
+}
 ```
 
 
